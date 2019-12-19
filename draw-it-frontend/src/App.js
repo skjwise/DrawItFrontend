@@ -5,7 +5,8 @@ import './App.css';
 class App extends React.Component {
   render(){
   return (
-    <div className = "center" >
+    <div className = "ui card" >
+      hello
   
         <CanvasDraw canvasWidth = {500} canvasHeight = {500} lazyRadius= {0} brushRadius= {5} brushColor= "lightblue"/>
    
