@@ -11,15 +11,15 @@ const API = "http://localhost:3000/drawings";
 
 class App extends React.Component {
   state = {
-    allDrawings: []
+    allDrawingsAndUsers: []
   };
 
   getDrawings() {
     fetch(API)
       .then(res => res.json())
-      .then(allDrawings =>
+      .then(allDrawingsAndUsers =>
         this.setState({
-          allDrawings
+          allDrawingsAndUsers
         })
       );
   }
@@ -29,7 +29,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { allDrawings } = this.state;
+    const { allDrawingsAndUsers } = this.state;
     return (
       <div>
         <Router>
@@ -38,9 +38,9 @@ class App extends React.Component {
         <Route
           exact
           path="/alldrawings"
-          render={(props) => (<AllDrawings {...props} allDrawings = {allDrawings}/>)}
+          render={(props) => (<AllDrawings {...props} allDrawings = {allDrawingsAndUsers.drawings}/>)}
         />
-        <Route exact path="/mydrawings" render={(props) => (<MyDrawings {...props} allDrawings = {allDrawings}/>)}/>
+        <Route exact path="/mydrawings" render={(props) => (<MyDrawings {...props} />)}/>
         </Router>
       </div>
     );
