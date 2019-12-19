@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-export class Navbar extends Component {
+export class MyDrawings extends Component {
     render() {
         return (
             <div>
-                
+                my drawings
             </div>
         );
     }
 }
 
-export default Navbar;
+export default MyDrawings;
