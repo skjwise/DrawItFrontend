@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {Container } from "semantic-ui-react";
 import AllDrawings from './containers/AllDrawings';
 import MyDrawings from './containers/MyDrawings';
 import Canvas from './containers/Canvas';
@@ -33,7 +34,8 @@ class App extends React.Component {
     return (
       <div>
         <Router>
-        <Navbar />
+        <Navbar/>
+        <Container>
         <Route exact path="/canvas" component = {Canvas}/>
         <Route
           exact
@@ -41,6 +43,7 @@ class App extends React.Component {
           render={(props) => (<AllDrawings {...props} allDrawings = {allDrawingsAndUsers.drawings}/>)}
         />
         <Route exact path="/mydrawings" render={(props) => (<MyDrawings {...props} />)}/>
+        </Container>
         </Router>
       </div>
     );
