@@ -3,8 +3,8 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import AllDrawings from './containers/AllDrawings';
 import MyDrawings from './containers/MyDrawings';
 import Canvas from './containers/Canvas';
+import Login from './containers/Login';
 import Navbar from './containers/Navbar';
-
 import "./App.css";
 
 const API = "http://localhost:3000/drawings";
@@ -28,12 +28,14 @@ class App extends React.Component {
     this.getDrawings();
   }
 
+
   render() {
     const { allDrawingsAndUsers } = this.state;
     return (
       <div>
         <Router>
         <Navbar />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/canvas" component = {Canvas}/>
         <Route
           exact
