@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-// import {Button, Checkbox, Form } from 'semantic-ui-react';
+import {Button, Form } from 'semantic-ui-react';
 
 const Login = () => {
     return (
@@ -8,18 +7,21 @@ const Login = () => {
           <br/>
           <br/>
           <br/>
-          <h3>Login!</h3> 
-        <form>
+          <h3>Please Login to Draw It!</h3> 
+        <Form>
           <div>
-            <label htmlFor="username">Username:   </label>
+            <label htmlFor="username">Username:</label>
             <input type="text" name="username" placeholder="Enter Username" />
           </div>
           <div>
-            <label htmlFor="password">Password:      </label>
+            <label htmlFor="password">Password:</label>
             <input type="password" name="password" placeholder="Enter Password" />
           </div>
-          <input type="submit" value="Login" />
-        </form>
+          <Form.Field>
+              <br/>
+            <Button type="submit" value="Login" >login</Button>
+          </Form.Field>
+        </Form>
       </div>
   
     )
