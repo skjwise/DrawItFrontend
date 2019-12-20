@@ -24,6 +24,13 @@ export class Navbar extends Component {
                 exact
                 activeStyle = {{background: 'lightblue'}}
                 > Draw It</NavLink>
+
+
+                <NavLink 
+                to = "/login"
+                exact
+                activeStyle = {{background: 'lightblue'}}
+                > Login </NavLink>
                 
             </div>
         );
