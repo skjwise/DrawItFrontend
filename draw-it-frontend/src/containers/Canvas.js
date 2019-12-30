@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Card, Grid, Button } from "semantic-ui-react";
 import CanvasDraw from "react-canvas-draw";
+
+import { Card, Grid, Button } from "semantic-ui-react";
+import API from "../adapters/API";
 
 export class Canvas extends Component {
   state = {
@@ -11,22 +13,14 @@ export class Canvas extends Component {
 
   saveDrawing = () => {
     this.setState({ saved: true });
-    fetch("http://localhost:3000/drawings", {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({user_id: 1, url: this.saveableCanvas.getSaveData()})
-  }).then(console.log)
-  
+    API.createDrawings(this.saveableCanvas.getSaveData()).then(d => console.log(d.drawing.url))
   };
 
   handleExportClick = () => {};
 
   render() {
     return (
-      <Grid>
+      <Grid stackable centered>
         <Grid.Column width={4}>
           <br />
           <p>colours</p>
@@ -42,11 +36,12 @@ export class Canvas extends Component {
           )}
         </Grid.Column>
         <Grid.Column width={12}>
-          <Card style={{ height: "500px", width: "500px", margin: "20px" }}>
+            Current Category: Elephant
+          <Card style={{ height: "90%", width: "90%", margin: "20px" }}>
             <CanvasDraw
               ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-              canvasWidth={500}
-              canvasHeight={500}
+              canvasWidth="100%"
+              // canvasHeight="75%"
               lazyRadius={0}
               brushRadius={this.state.brushRadius}
               brushColor={this.state.brushColor}

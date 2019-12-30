@@ -1,4 +1,6 @@
 import React from "react";
+import CanvasDraw from "react-canvas-draw";
+
 import LikeCount from "./LikeCount";
 import { Card } from "semantic-ui-react";
 
@@ -27,23 +29,28 @@ class DrawingCard extends React.Component {
   render() {
     const { drawing, username, likes } = this.props;
     return (
-     
-        <Card style={{ height: "275px", width: "250px", margin: "10px" }}>
-          <img
-            src="./elephant.png"
-            alt="elephant"
-            style={{ height: "250px", width: "250px" }}
-          />
-          
-        
+      // <Card style={{ height: "275px", width: "250px", margin: "10px" }}>
+      //   <img
+      //     src="./elephant.png"
+      //     alt="elephant"
+      //     style={{ height: "250px", width: "250px" }}
+      //   />
+      <React.Fragment>
+        <CanvasDraw
+          disabled
+          hideGrid
+          canvasWidth={250}
+          canvasHeight={250}
+          ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
+          saveData={drawing}
+        />
         <LikeCount
           username={username}
           handleClick={this.handleClick}
           heartColor={this.state.heartColor}
           likes={this.state.likes}
         />
-        </Card>
-     
+      </React.Fragment>
     );
   }
 }

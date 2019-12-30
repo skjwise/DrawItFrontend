@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import { Container } from "semantic-ui-react";
 import AllDrawings from "./containers/AllDrawings";
 import MyDrawings from "./containers/MyDrawings";
 import Canvas from "./containers/Canvas";
 import Navbar from "./containers/Navbar";
+import API from "./adapters/API";
 
 import "./App.css";
-
-const API = "http://localhost:3000/drawings";
 
 class App extends React.Component {
   state = {
@@ -16,8 +16,7 @@ class App extends React.Component {
   };
 
   getDrawings() {
-    fetch(API)
-      .then(res => res.json())
+    API.getDrawings()
       .then(allDrawingsAndUsers =>
         this.setState({
           allDrawingsAndUsers
