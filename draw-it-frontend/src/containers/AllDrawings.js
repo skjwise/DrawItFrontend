@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from "semantic-ui-react";
 import DrawingCard from "../components/DrawingCard";
 
-const AllDrawings = ({ allDrawings }) => {
+const AllDrawings = ({ allDrawings}) => {
   return (
     <Grid centered >
       <Grid.Row columns={1}>
