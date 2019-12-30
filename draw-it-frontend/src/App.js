@@ -8,6 +8,7 @@ import Navbar from './containers/Navbar';
 
 import "./App.css";
 import Login from "./containers/Login";
+import SignUp from "./containers/SignUp";
 
 const API = "http://localhost:3000/drawings";
 
@@ -37,14 +38,15 @@ class App extends React.Component {
         <Router>
         <Navbar/>
         <Container>
-        <Route exact path="/login" component = {Login}/>
-        <Route exact path="/canvas" component = {Canvas}/>
-        <Route
+          <Route exact path="/signup" component = {SignUp} />
+          <Route exact path="/login" component = {Login}/>
+          <Route exact path="/canvas" component = {Canvas}/>
+          <Route
           exact
           path="/alldrawings"
           render={(props) => (<AllDrawings {...props} allDrawings = {allDrawingsAndUsers.drawings}/>)}
-        />
-        <Route exact path="/mydrawings" render={(props) => (<MyDrawings {...props} />)}/>
+          />
+          <Route exact path="/mydrawings" render={(props) => (<MyDrawings {...props} />)}/>
         </Container>
         </Router>
       </div>

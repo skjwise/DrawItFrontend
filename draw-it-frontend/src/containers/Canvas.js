@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Card, Grid } from "semantic-ui-react";
 import CanvasDraw from "react-canvas-draw";
 
+
+// dropdown selected attribute to disply colors on the left-hand side of the Canvas Page?
+
 export class Canvas extends Component {
   render() {
     return (
