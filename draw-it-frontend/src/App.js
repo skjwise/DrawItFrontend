@@ -1,16 +1,17 @@
 import React from "react";
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import {Container } from "semantic-ui-react";
-import AllDrawings from './containers/AllDrawings';
-import MyDrawings from './containers/MyDrawings';
-import Canvas from './containers/Canvas';
-import Navbar from './containers/Navbar';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import "./App.css";
 import Login from "./containers/Login";
 import SignUp from "./containers/SignUp";
+import { Container } from "semantic-ui-react";
+import AllDrawings from "./containers/AllDrawings";
+import MyDrawings from "./containers/MyDrawings";
+import Canvas from "./containers/Canvas";
+import Navbar from "./containers/Navbar";
+import API from "./adapters/fetchAPI";
 
-const API = "http://localhost:3000/drawings";
+import "./App.css";
 
 class App extends React.Component {
   state = {
@@ -18,14 +19,15 @@ class App extends React.Component {
   };
 
   getDrawings() {
-    fetch(API)
-      .then(res => res.json())
+    API.getDrawings()
       .then(allDrawingsAndUsers =>
         this.setState({
           allDrawingsAndUsers
         })
       );
   }
+
+
 
   componentDidMount() {
     this.getDrawings();
@@ -34,9 +36,9 @@ class App extends React.Component {
   render() {
     const { allDrawingsAndUsers } = this.state;
     return (
-      <div>
+      <div className="background">
         <Router>
-        <Navbar/>
+        <Navbar />
         <Container>
           <Route exact path="/signup" component = {SignUp} />
           <Route exact path="/login" component = {Login}/>
