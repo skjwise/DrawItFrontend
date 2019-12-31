@@ -1,57 +1,59 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {Container } from "semantic-ui-react";
 import AllDrawings from './containers/AllDrawings';
 import MyDrawings from './containers/MyDrawings';
 import Canvas from './containers/Canvas';
 import Navbar from './containers/Navbar';
-
 import "./App.css";
 import Login from "./containers/Login";
 import SignUp from "./containers/SignUp";
+import API from './adapters/API';
 
-const API = "http://localhost:3000/drawings";
+function App() {
+  // this.state = {
+  //   allDrawingsAndUsers: []
+  // };
 
-class App extends React.Component {
-  state = {
-    allDrawingsAndUsers: []
-  };
+ const [user, setUser] = useState(null);
 
-  getDrawings() {
-    fetch(API)
-      .then(res => res.json())
-      .then(allDrawingsAndUsers =>
-        this.setState({
-          allDrawingsAndUsers
-        })
-      );
+ useEffect(() => {
+  API.validateUser()
+  .then(user => setUser(user))
+  .catch(console.error);
+ }, []);
+
+  const handleSignup = () => {}
+
+  const handleLogin = loginData => {
+    API.login(loginData).then(user => setUser(user));
   }
 
-  componentDidMount() {
-    this.getDrawings();
+  const handleSubmit = () => {
+    console.log("login button or signup button clicked")
+      // {!user ? ( <SignUp /> ) : (<Canvas />)}
   }
 
-  render() {
-    const { allDrawingsAndUsers } = this.state;
+    // const { allDrawingsAndUsers } = this.state;
     return (
       <div>
         <Router>
         <Navbar/>
         <Container>
-          <Route exact path="/signup" component = {SignUp} />
-          <Route exact path="/login" component = {Login}/>
+          {user && <span>Hello, {user.username}! </span>}
+          <Route exact path="/signup" render={(props) => (<SignUp {...props} signup={handleSignup} handleSubmit={handleSubmit}/>)} />
+          <Route exact path="/login" render= {(props) => (<Login {...props} login={handleLogin} handleSubmit={handleSubmit} />)} />
           <Route exact path="/canvas" component = {Canvas}/>
           <Route
           exact
           path="/alldrawings"
-          render={(props) => (<AllDrawings {...props} allDrawings = {allDrawingsAndUsers.drawings}/>)}
+          // render={(props) => (<AllDrawings {...props} allDrawings = {allDrawingsAndUsers.drawings}/>)}
           />
           <Route exact path="/mydrawings" render={(props) => (<MyDrawings {...props} />)}/>
         </Container>
         </Router>
       </div>
     );
-  }
 }
 
 export default App;

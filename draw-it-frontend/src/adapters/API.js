@@ -1,0 +1,71 @@
+const API_ENDPOINT = "http://localhost:3000";
+const USERS_URL = `${API_ENDPOINT}/users`;
+const LOGIN_URL = `${API_ENDPOINT}/login`;
+// const SIGNUP_URL = `${API_ENDPOINT}/signup`;
+const VALIDATE_URL = `${API_ENDPOINT}/validate_user`;
+const DRAWING_URL = `${API_ENDPOINT}/drawings`;
+
+const jsonify = res => res.json();
+
+export const login = loginData => {
+    fetch(LOGIN_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({user: loginData})
+    })
+    .then(jsonify)
+    .then(data => {
+        localStorage.setItem("token", data.token);
+        return data.user;
+    })
+};
+
+export const signUp = signupData => {
+    fetch(USERS_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({user: signupData})
+    })
+    .then(jsonify)
+}
+
+export const validateUser = () => {
+    if (localStorage.token) {
+        return fetch(VALIDATE_URL, {
+            headers: {
+                Authorisation: localStorage.token
+            }
+        })
+        .then(jsonify)
+        .then(data => {
+            localStorage.setItem("token", data.token);
+            return data.user;
+        })
+    } else {
+        return Promise.reject({ error: "no token"})
+    }
+}
+
+export const getDrawings = () => {
+    return fetch(DRAWING_URL)
+      .then(res => res.json())
+      .then(allDrawingsAndUsers =>
+        this.setState({
+          allDrawingsAndUsers
+        })
+      );
+}
+
+
+export default {
+    login,
+    signUp,
+    validateUser,
+    getDrawings
+}
