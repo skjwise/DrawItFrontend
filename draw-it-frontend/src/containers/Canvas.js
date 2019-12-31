@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import CanvasDraw from "react-canvas-draw";
 
-
 // dropdown selected attribute to disply colors on the left-hand side of the Canvas Page?
 import { Card, Grid, Button } from "semantic-ui-react";
 import { CirclePicker } from "react-color";
@@ -17,9 +16,11 @@ export class Canvas extends Component {
 
   saveDrawing = () => {
     this.setState({ saved: true });
-    API.createDrawings(this.saveableCanvas.getSaveData()).then(d =>
-      console.log(d.drawing.url)
-    );
+    API.createDrawings(this.saveableCanvas.getSaveData())
+    .then(console.log)
+    // .then(drawing =>
+    //   this.props.saveDrawing(drawing)
+    // );
   };
 
   handleChangeComplete = color => {
@@ -38,21 +39,12 @@ export class Canvas extends Component {
       <Grid stackable>
         <Grid.Column width={6}>
           <br />
-          <p>colours</p>
+          <p>Pick your colours!</p>
           <CirclePicker
             color={this.state.brushColor}
             onChangeComplete={this.handleChangeComplete}
           />
-          {this.state.saved === false ? (
-            <Button
-              basic
-              color="teal"
-              content="Save drawing"
-              onClick={this.saveDrawing}
-            />
-          ) : (
-            <Button content="Drawing saved" />
-          )}
+          
         </Grid.Column>
         <Grid.Column width={10}>
           Current Category: Elephant
@@ -72,6 +64,24 @@ export class Canvas extends Component {
               gridColor="white"
             />
           </Card>
+          {this.state.saved === false ? (
+            <Button
+              basic
+              color="purple"
+              content="Save drawing"
+              onClick={this.saveDrawing}
+            />
+          ) : (
+
+            <Button content="Drawing saved" />
+
+          )}
+          <Button
+              basic
+              color="purple"
+              content="New drawing"
+              onClick={() => this.saveableCanvas.clear()}
+            />
         </Grid.Column>
       </Grid>
     );

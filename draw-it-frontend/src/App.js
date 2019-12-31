@@ -15,26 +15,28 @@ import "./App.css";
 
 class App extends React.Component {
   state = {
-    allDrawingsAndUsers: []
+    allDrawings: []
   };
 
   getDrawings() {
     API.getDrawings()
       .then(allDrawingsAndUsers =>
         this.setState({
-          allDrawingsAndUsers
+          allDrawings: allDrawingsAndUsers.drawings
         })
       );
   }
 
-
+  saveDrawing = drawing => {
+    this.setState({ allDrawings: [...this.state.allDrawings, drawing]})
+  }
 
   componentDidMount() {
     this.getDrawings();
   }
 
   render() {
-    const { allDrawingsAndUsers } = this.state;
+    const { allDrawings} = this.state;
     return (
       <div className="background">
         <Router>
@@ -42,11 +44,11 @@ class App extends React.Component {
         <Container>
           <Route exact path="/signup" component = {SignUp} />
           <Route exact path="/login" component = {Login}/>
-          <Route exact path="/canvas" component = {Canvas}/>
+          <Route exact path="/canvas" render={(props) => (<Canvas {...props} saveDrawing = {this.saveDrawing}/>)}/>
           <Route
           exact
           path="/alldrawings"
-          render={(props) => (<AllDrawings {...props} allDrawings = {allDrawingsAndUsers.drawings}/>)}
+          render={(props) => (<AllDrawings {...props} allDrawings = {allDrawings}/>)}
           />
           <Route exact path="/mydrawings" render={(props) => (<MyDrawings {...props} />)}/>
         </Container>

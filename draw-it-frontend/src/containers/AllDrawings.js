@@ -8,10 +8,11 @@ const AllDrawings = ({ allDrawings}) => {
       <Grid.Row columns={1}>
         {/* <DrawingCard username="sarah" drawing = "test" /> */}
       </Grid.Row>
-      <Grid.Row columns={3}>
+      <Grid.Row columns={4}>
         {allDrawings.map(drawing => (
           <DrawingCard
             key={drawing.id}
+            id={drawing.id}
             username={drawing.user.username}
             drawing={drawing.url}
             likes = {drawing.number_of_likes}

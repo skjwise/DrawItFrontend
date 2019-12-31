@@ -3,6 +3,7 @@ import CanvasDraw from "react-canvas-draw";
 
 import LikeCount from "./LikeCount";
 import { Card } from "semantic-ui-react";
+import fetchAPI from "../adapters/fetchAPI";
 
 class DrawingCard extends React.Component {
   state = {
@@ -17,19 +18,28 @@ class DrawingCard extends React.Component {
 
     if (this.state.heartColor === "grey") {
       likes = this.state.likes + 1;
-      heartColor = "red";
+      heartColor = "purple";
     } else {
       likes = this.state.likes - 1;
       heartColor = "grey";
     }
 
     this.setState({ heartColor, likes });
+
+    fetchAPI.addLike(this.props.id,likes)
+    .then(d => console.log(d.number_of_likes))
   };
+
+  componentDidMount() {
+    const likes = this.props.likes ? this.props.likes : 0
+    this.setState({likes})
+  }
+  
   
   render() {
     const { drawing, username, likes } = this.props;
     return (
-      <Card style={{ height: "250px", width: "250px", margin: "10px" }}>
+      <Card  style={{ height: "285px", width: "250px", margin: "30px" }}>
         <CanvasDraw
           disabled
           hideGrid
@@ -39,16 +49,18 @@ class DrawingCard extends React.Component {
           lazyRadius={5}
           brushRadius = {5}
           catenaryColor="white"
-          immediateLoading = {true}
+          immediateLoading = {false}
           
           saveData = {drawing}
         
         />
+
         <LikeCount
           username={username}
           handleClick={this.handleClick}
           heartColor={this.state.heartColor}
           likes={this.state.likes}
+          id = {this.props.id}
         />
       </Card>
     );

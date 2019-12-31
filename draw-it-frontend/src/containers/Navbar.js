@@ -1,87 +1,61 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import { Menu, Segment } from "semantic-ui-react";
 
 export class Navbar extends Component {
-    render() {
-        return (
-            <div>
-                <NavLink 
-                exact to = "/alldrawings"
-                activeStyle = {{fontWeight: "bold", background: 'lightblue'}}
-                > All Drawings </NavLink>
+  state = { activeItem: "home" };
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
-                <NavLink 
-                exact to = "/mydrawings"
-                activeStyle = {{background: 'lightblue'}}
-                > My Drawings </NavLink>
-
-                <NavLink 
-                exact to = "/canvas"
-                activeStyle = {{background: 'lightblue'}}
-                > Draw It</NavLink>
-
-
-                <NavLink 
-                exact to = "/login"
-                activeStyle = {{background: 'lightblue'}}
-                > Login </NavLink>
-                
-                <NavLink 
-                exact to = "/signup"
-                activeStyle = {{background: 'lightblue'}}
-                > Sign Up </NavLink>
-            </div>
-        );
-    }
+  render() {
+    const { activeItem } = this.state;
+    return (
+    //   <Segment  color="teal">
+        <Menu  pointing secondary color="purple">
+          <Menu.Item
+            name="all drawings"
+            as={NavLink}
+            exact
+            to="/alldrawings"
+            active={activeItem === "allDrawings"}
+            onClick={this.handleItemClick}
+            
+          />
+          <Menu.Item
+            name="my drawings"
+            as={NavLink}
+            exact
+            to="/mydrawings"
+            active={activeItem === "myDrawings"}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name="draw it!"
+            as={NavLink}
+            exact
+            to="/canvas"
+            active={activeItem === "canvas"}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name="login"
+            as={NavLink}
+            exact
+            to="/login"
+            active={activeItem === "login"}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name="sign up"
+            as={NavLink}
+            exact
+            to="/signup"
+            active={activeItem === "signUp"}
+            onClick={this.handleItemClick}
+          />
+        </Menu>
+    //  </Segment>
+    );
+  }
 }
 
 export default Navbar;
-
-
-
-//SEMANTIC UI NAVBAR / MENU: 
-
-
-// import React, { Component } from 'react'
-// import { Input, Menu } from 'semantic-ui-react'
-
-// export default class Navbar extends Component {
-//   state = { activeItem: 'Login' }
-
-//   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
-//   render() {
-//     const { activeItem } = this.state
-
-//     return (
-//       <Menu secondary>
-//         <Menu.Item
-//           name='Login'
-//           active={activeItem === 'Login'}
-//           onClick={this.handleItemClick}
-//         />
-//         <Menu.Item
-//           name='alldrawings'
-//           active={activeItem === 'alldrawaings'}
-//           onClick={this.handleItemClick}
-//         />
-//         <Menu.Item
-//           name='mydrawings'
-//           active={activeItem === 'mydrawings'}
-//           onClick={this.handleItemClick}
-//         />
-//         <Menu.Menu position='right'>
-//           <Menu.Item>
-//             <Input icon='search' placeholder='Search...' />
-//           </Menu.Item>
-//           <Menu.Item
-//             name='logout'
-//             active={activeItem === 'logout'}
-//             onClick={this.handleItemClick}
-//           />
-//         </Menu.Menu>
-//       </Menu>
-//     )
-//   }
-// }
