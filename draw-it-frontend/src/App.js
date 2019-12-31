@@ -36,9 +36,9 @@ function App() {
 
     // const { allDrawingsAndUsers } = this.state;
     return (
-      <div>
+      <div className="background">
         <Router>
-        <Navbar/>
+        <Navbar />
         <Container>
           {user && <span>Hello, {user.username}! </span>}
           <Route exact path="/signup" render={(props) => (<SignUp {...props} signup={handleSignup} handleSubmit={handleSubmit}/>)} />
