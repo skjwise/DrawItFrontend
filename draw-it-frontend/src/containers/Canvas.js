@@ -2,28 +2,45 @@ import React, { Component } from "react";
 import CanvasDraw from "react-canvas-draw";
 
 import { Card, Grid, Button } from "semantic-ui-react";
-import API from "../adapters/API";
+import { CirclePicker } from "react-color";
+import API from "../adapters/fetchAPI";
 
 export class Canvas extends Component {
   state = {
     brushColor: "lightblue",
-    brushRadius: 5,
-    saved: false
+    brushRadius: 1,
+    saved: false,
+    canvasSize: 400
   };
 
   saveDrawing = () => {
     this.setState({ saved: true });
-    API.createDrawings(this.saveableCanvas.getSaveData()).then(d => console.log(d.drawing.url))
+    API.createDrawings(this.saveableCanvas.getSaveData()).then(d =>
+      console.log(d.drawing.url)
+    );
   };
 
-  handleExportClick = () => {};
+  handleChangeComplete = color => {
+    this.setState({ brushColor: color.hex });
+  };
+
+  componentDidMount() {
+    // const canvasSize = this.card.offsetWidth;
+    // console.log(canvasSize)
+    const canvasSize = document.querySelector("#card").offsetWidth;
+    this.setState({ canvasSize });
+  }
 
   render() {
     return (
-      <Grid stackable centered>
-        <Grid.Column width={4}>
+      <Grid stackable>
+        <Grid.Column width={6}>
           <br />
           <p>colours</p>
+          <CirclePicker
+            color={this.state.brushColor}
+            onChangeComplete={this.handleChangeComplete}
+          />
           {this.state.saved === false ? (
             <Button
               basic
@@ -35,17 +52,21 @@ export class Canvas extends Component {
             <Button content="Drawing saved" />
           )}
         </Grid.Column>
-        <Grid.Column width={12}>
-            Current Category: Elephant
-          <Card style={{ height: "90%", width: "90%", margin: "20px" }}>
+        <Grid.Column width={10}>
+          Current Category: Elephant
+          <Card
+            id="card"
+            // ref={card => (this.card = card)}
+            style={{ height: this.state.canvasSize, width: "75%" }}
+          >
             <CanvasDraw
               ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-              canvasWidth="100%"
-              // canvasHeight="75%"
               lazyRadius={0}
               brushRadius={this.state.brushRadius}
               brushColor={this.state.brushColor}
               catenaryColor={this.state.brushColor}
+              canvasWidth={this.state.canvasSize}
+              canvasHeight={this.state.canvasSize}
               gridColor="white"
             />
           </Card>

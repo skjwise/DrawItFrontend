@@ -1,6 +1,5 @@
-
 .background {
-  background-color: azure
+  background-color: azure;
 }
 
 .square {
@@ -13,4 +12,3 @@
   display: block;
   padding-bottom: 100%;
 }
-

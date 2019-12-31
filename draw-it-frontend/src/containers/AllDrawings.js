@@ -6,7 +6,7 @@ const AllDrawings = ({ allDrawings}) => {
   return (
     <Grid centered >
       <Grid.Row columns={1}>
-        <DrawingCard username="sarah" />
+        {/* <DrawingCard username="sarah" drawing = "test" /> */}
       </Grid.Row>
       <Grid.Row columns={3}>
         {allDrawings.map(drawing => (

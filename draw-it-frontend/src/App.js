@@ -6,7 +6,7 @@ import AllDrawings from "./containers/AllDrawings";
 import MyDrawings from "./containers/MyDrawings";
 import Canvas from "./containers/Canvas";
 import Navbar from "./containers/Navbar";
-import API from "./adapters/API";
+import API from "./adapters/fetchAPI";
 
 import "./App.css";
 
@@ -23,6 +23,8 @@ class App extends React.Component {
         })
       );
   }
+
+
 
   componentDidMount() {
     this.getDrawings();

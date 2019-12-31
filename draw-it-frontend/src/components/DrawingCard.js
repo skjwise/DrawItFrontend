@@ -6,7 +6,7 @@ import { Card } from "semantic-ui-react";
 
 class DrawingCard extends React.Component {
   state = {
-    heartColor: "white",
+    heartColor: "grey",
     heartShape: "heart outline",
     likes: 0
   };
@@ -15,34 +15,34 @@ class DrawingCard extends React.Component {
     let heartColor;
     let likes;
 
-    if (this.state.heartColor === "white") {
+    if (this.state.heartColor === "grey") {
       likes = this.state.likes + 1;
       heartColor = "red";
     } else {
       likes = this.state.likes - 1;
-      heartColor = "white";
+      heartColor = "grey";
     }
 
     this.setState({ heartColor, likes });
   };
-
+  
   render() {
     const { drawing, username, likes } = this.props;
     return (
-      // <Card style={{ height: "275px", width: "250px", margin: "10px" }}>
-      //   <img
-      //     src="./elephant.png"
-      //     alt="elephant"
-      //     style={{ height: "250px", width: "250px" }}
-      //   />
-      <React.Fragment>
+      <Card style={{ height: "250px", width: "250px", margin: "10px" }}>
         <CanvasDraw
           disabled
           hideGrid
-          canvasWidth={250}
-          canvasHeight={250}
-          ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
-          saveData={drawing}
+          loadTimeOffset= {0}
+          canvasWidth= {250}
+          canvasHeight= {250}
+          lazyRadius={5}
+          brushRadius = {5}
+          catenaryColor="white"
+          immediateLoading = {true}
+          
+          saveData = {drawing}
+        
         />
         <LikeCount
           username={username}
@@ -50,7 +50,7 @@ class DrawingCard extends React.Component {
           heartColor={this.state.heartColor}
           likes={this.state.likes}
         />
-      </React.Fragment>
+      </Card>
     );
   }
 }
