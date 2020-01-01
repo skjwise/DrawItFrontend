@@ -4,23 +4,24 @@ import CanvasDraw from "react-canvas-draw";
 // dropdown selected attribute to disply colors on the left-hand side of the Canvas Page?
 import { Card, Grid, Button } from "semantic-ui-react";
 import { CirclePicker } from "react-color";
-import API from "../adapters/fetchAPI";
+import fetchAPI from "../adapters/fetchAPI";
 
 export class Canvas extends Component {
   state = {
-    brushColor: "lightblue",
-    brushRadius: 1,
+    brushColor: "darkviolet",
+    brushRadius: 3,
     saved: false,
     canvasSize: 400
   };
 
   saveDrawing = () => {
     this.setState({ saved: true });
-    API.createDrawings(this.saveableCanvas.getSaveData())
-    .then(console.log)
-    // .then(drawing =>
-    //   this.props.saveDrawing(drawing)
-    // );
+    console.log(this.saveableCanvas.getSaveData())
+    fetchAPI.createDrawings(this.saveableCanvas.getSaveData())
+    // .then(d => console.log(d.drawing, d))
+    .then(drawing =>
+      this.props.saveDrawing(drawing)
+    );
   };
 
   handleChangeComplete = color => {
@@ -53,6 +54,7 @@ export class Canvas extends Component {
             // ref={card => (this.card = card)}
             style={{ height: this.state.canvasSize, width: "75%" }}
           >
+     
             <CanvasDraw
               ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
               lazyRadius={0}
@@ -63,7 +65,7 @@ export class Canvas extends Component {
               canvasHeight={this.state.canvasSize}
               gridColor="white"
             />
-          </Card>
+     </Card> 
           {this.state.saved === false ? (
             <Button
               basic
@@ -76,6 +78,7 @@ export class Canvas extends Component {
             <Button content="Drawing saved" />
 
           )}
+          
           <Button
               basic
               color="purple"

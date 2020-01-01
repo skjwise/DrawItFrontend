@@ -23,36 +23,33 @@ class DrawingCard extends React.Component {
       likes = this.state.likes - 1;
       heartColor = "grey";
     }
-
-    this.setState({ heartColor, likes });
-
-    fetchAPI.addLike(this.props.id,likes)
-    .then(d => console.log(d.number_of_likes))
+    fetchAPI
+      .addLike(this.props.id, likes)
+      .then(this.setState({ heartColor, likes }))
+      .then(this.props.updateLikes(this.props.id, likes))
+      .then(this.props.defineAllDrawingsAndMostLikedDrawing());
   };
 
   componentDidMount() {
-    const likes = this.props.likes ? this.props.likes : 0
-    this.setState({likes})
+    const likes = this.props.likes ? this.props.likes : 0;
+    this.setState({ likes });
   }
-  
-  
+
   render() {
-    const { drawing, username, likes } = this.props;
+    const { drawing, username } = this.props;
     return (
-      <Card  style={{ height: "285px", width: "250px", margin: "30px" }}>
+      <Card style={{ height: "285px", width: "250px", margin: "30px" }}>
         <CanvasDraw
           disabled
           hideGrid
-          loadTimeOffset= {0}
-          canvasWidth= {250}
-          canvasHeight= {250}
+          loadTimeOffset={0}
+          canvasWidth={250}
+          canvasHeight={250}
           lazyRadius={5}
-          brushRadius = {5}
+          brushRadius={5}
           catenaryColor="white"
-          immediateLoading = {false}
-          
-          saveData = {drawing}
-        
+          immediateLoading={false}
+          saveData={drawing}
         />
 
         <LikeCount
@@ -60,7 +57,7 @@ class DrawingCard extends React.Component {
           handleClick={this.handleClick}
           heartColor={this.state.heartColor}
           likes={this.state.likes}
-          id = {this.props.id}
+          id={this.props.id}
         />
       </Card>
     );
