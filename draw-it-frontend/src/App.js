@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import CanvasDraw from "react-canvas-draw";
+
 
 import "./App.css";
 import Login from "./containers/Login";
@@ -10,8 +10,9 @@ import AllDrawings from "./containers/AllDrawings";
 import MyDrawings from "./containers/MyDrawings";
 import Canvas from "./containers/Canvas";
 import Navbar from "./containers/Navbar";
+import Home from "./components/Home";
 import fetchAPI from "./adapters/fetchAPI";
-import DRAWING from "./adapters/drawings";
+
 
 import "./App.css";
 
@@ -73,6 +74,7 @@ class App extends React.Component {
         <Router>
           <Navbar />
           <Container>
+            <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={Login} />
             <Route
@@ -105,17 +107,7 @@ class App extends React.Component {
           </Container>
         </Router>
 
-        <CanvasDraw
-          disabled
-          loadTimeOffset={0}
-          canvasWidth={1000}
-          canvasHeight={500}
-          lazyRadius={5}
-          brushRadius={5}
-          catenaryColor="white"
-          immediateLoading={false}
-          saveData={DRAWING}
-        />
+        
       </div>
     );
   }
