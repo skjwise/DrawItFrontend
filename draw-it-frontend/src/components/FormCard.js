@@ -40,7 +40,7 @@ const FormCard = props => {
           </Form.Field>
 
           <Form.Field >
-            <Label as="a" tag color="purple">
+            <Label as="a" tag color="purple" >
               Password
             </Label>
             <input type="password" name="password" placeholder="Password" />

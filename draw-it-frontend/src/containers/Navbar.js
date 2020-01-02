@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, Segment } from "semantic-ui-react";
+import { Menu, Icon } from "semantic-ui-react";
 
 export class Navbar extends Component {
   state = { activeItem: "home" };
@@ -11,6 +11,16 @@ export class Navbar extends Component {
     return (
       //   <Segment  color="teal">
       <Menu pointing secondary color="purple">
+        <Menu.Item
+          name="Home"
+          as={NavLink}
+          exact
+          to="/"
+          active={activeItem === "canvas"}
+          onClick={this.handleItemClick}
+        >
+          <Icon name="home" color="purple" size="large" />
+        </Menu.Item>
         <Menu.Item
           name="draw it!"
           as={NavLink}
