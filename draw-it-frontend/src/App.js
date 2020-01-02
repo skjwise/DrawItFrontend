@@ -86,7 +86,6 @@ function App() {
       .catch(console.error);
   }, []);
 
-<<<<<<< HEAD
  useEffect(() => {
    getDrawings()
   API.validateUser()
@@ -150,76 +149,6 @@ function App() {
         
       </div>
     );
-=======
-  const handleSignup = () => {};
-
-  const handleLogin = loginData => {
-    API.login(loginData).then(user => setUser(user));
-  };
-  const handleSubmit = () => {
-    console.log("login button or signup button clicked");
-    // {!user ? ( <SignUp /> ) : (<Canvas />)}
-  };
-
-  // const { allDrawingsAndUsers } = this.state;
-
-  return (
-    <div className="background">
-      <Router>
-        <Navbar />
-        <Container>
-          <Route exact path="/" component={Home} />
-          {user && <span>Hello, {user.username}! </span>}
-          <Route
-            exact
-            path="/signup"
-            render={props => (
-              <SignUp
-                {...props}
-                signup={handleSignup}
-                handleSubmit={handleSubmit}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/login"
-            render={props => (
-              <Login
-                {...props}
-                login={handleLogin}
-                handleSubmit={handleSubmit}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path="/canvas"
-            render={props => <Canvas {...props} saveDrawing={saveDrawing} user= {user}/>}
-          />
-          <Route
-            exact
-            path="/alldrawings"
-            render={props => (
-              <AllDrawings
-                {...props}
-                allDrawings={defineCurrentDrawings()}
-                mostLikedDrawing={mostLikedDrawing}
-                defineAllDrawingsAndMostLikedDrawing={
-                  defineAllDrawingsAndMostLikedDrawing
-                }
-                updateLikes={updateLikes}
-                getMoreDrawings={getMoreDrawings}
-                startingValue = {startingValue}
-              />
-            )}
-          />
-        </Container>
-      </Router>
-    </div>
-  );
->>>>>>> e038e519a69f6d01c3febfd98e8b390798bb6e01
 }
 
 export default App;

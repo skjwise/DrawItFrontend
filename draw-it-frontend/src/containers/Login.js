@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import FormCard from '../components/FormCard';
-import Canvas from './Canvas';
-import SignUp from './SignUp';
+import {Redirect} from 'react-router-dom';
+// import FormCard from '../components/FormCard';
+// import Canvas from './Canvas';
+// import SignUp from './SignUp';
 import { login } from "../adapters/API";
+import { Form, Button } from "semantic-ui-react";
+
 
 
 const Login = (props) => {
@@ -17,8 +20,10 @@ const Login = (props) => {
   };
 
   const handleLoginSubmit = e => {
-    e.preventDefault();
-    login(loginData);
+    e.preventDefault()
+    login(loginData)
+    return <Redirect to="/canvas" />
+
   }
 
     return (
