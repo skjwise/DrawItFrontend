@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import FormCard from '../components/FormCard';
-import {Button, Form } from 'semantic-ui-react';
 import Canvas from './Canvas';
 import SignUp from './SignUp';
 import { login } from "../adapters/API";

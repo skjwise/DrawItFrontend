@@ -27,14 +27,6 @@ export class Navbar extends Component {
           active={activeItem === "allDrawings"}
           onClick={this.handleItemClick}
         />
-        <Menu.Item
-          name="my drawings"
-          as={NavLink}
-          exact
-          to="/mydrawings"
-          active={activeItem === "myDrawings"}
-          onClick={this.handleItemClick}
-        />
 
         <Menu.Item
           name="login"

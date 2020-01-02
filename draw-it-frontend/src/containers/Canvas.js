@@ -18,7 +18,7 @@ export class Canvas extends Component {
     this.setState({ saved: true });
     console.log(this.saveableCanvas.getSaveData());
     fetchAPI
-      .createDrawings(this.saveableCanvas.getSaveData())
+      .createDrawings(1,this.saveableCanvas.getSaveData())
       // .then(d => console.log(d.drawing, d))
       .then(drawing => this.props.saveDrawing(drawing));
   };
@@ -39,17 +39,43 @@ export class Canvas extends Component {
       <Grid stackable>
         <Grid.Column width={6}>
           <br />
+          <br />
           <Label as="a" color="purple" tag>
             Pick your colours!
           </Label>
+          <br />
           <br />
           <br />
           <CirclePicker
             color={this.state.brushColor}
             onChangeComplete={this.handleChangeComplete}
           />
+<br />
+          <br />
+           {this.state.saved === false ? (
+            <Button
+              basic
+              color="purple"
+              content="Save drawing"
+              onClick={this.saveDrawing}
+            />
+          ) : (
+            <Button content="Drawing saved" />
+          )}
+          <Button
+            basic
+            color="purple"
+            content="New drawing"
+            onClick={() => this.saveableCanvas.clear()}
+          />
         </Grid.Column>
         <Grid.Column width={10}>
+          <br />
+          <br />
+          <Label as="a" color="purple" tag>
+            Draw something here!
+          </Label>
+          <br />
           <br />
           <Card
             id="card"
@@ -68,22 +94,7 @@ export class Canvas extends Component {
               gridColor="white"
             />
           </Card>
-          {this.state.saved === false ? (
-            <Button
-              basic
-              color="purple"
-              content="Save drawing"
-              onClick={this.saveDrawing}
-            />
-          ) : (
-            <Button content="Drawing saved" />
-          )}
-          <Button
-            basic
-            color="purple"
-            content="New drawing"
-            onClick={() => this.saveableCanvas.clear()}
-          />
+         
         </Grid.Column>
       </Grid>
     );

@@ -7,14 +7,14 @@ const getDrawings = () => {
 };
 
 // need to add authorisation token to make sure the right user_id is used
-const createDrawings = (drawingData) => {
+const createDrawings = (user, drawingData) => {
   return fetch(DRAWINGS_URL, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ user_id: 1, url: drawingData })
+    body: JSON.stringify({ user_id: user, url: drawingData })
   }).then(jsonify);
 };
 
