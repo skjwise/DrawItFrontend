@@ -1,7 +1,6 @@
 const API_ENDPOINT = "http://localhost:3000";
 const USERS_URL = `${API_ENDPOINT}/users`;
 const LOGIN_URL = `${API_ENDPOINT}/login`;
-// const SIGNUP_URL = `${API_ENDPOINT}/signup`;
 const VALIDATE_URL = `${API_ENDPOINT}/validate_user`;
 const DRAWING_URL = `${API_ENDPOINT}/drawings`;
 
