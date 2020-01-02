@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Label, Grid, Button, Segment } from "semantic-ui-react";
 
 const FormCard = props => {
+  
   return (
     <React.Fragment>
       <br />
