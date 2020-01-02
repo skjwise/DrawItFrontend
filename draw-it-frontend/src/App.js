@@ -85,16 +85,10 @@ function App() {
       <div className="background" >
         
         <Router>
-<<<<<<< HEAD
-        <Navbar />
-        {user && <span>Hello, {user.username}! </span>}
-        <Container>
-=======
           <Navbar />
           <Container style = {{align: "inline-block"}}>
             <Route exact path="/" component={Home} />
             {user && <span>Hello, {user.username}! </span>}
->>>>>>> 8a97bcb3fadbd49e738d819345a5884529032328
           <Route exact path="/signup" render={(props) => (<SignUp {...props} signup={handleSignup} handleSubmit={handleSubmit}/>)} />
           <Route exact path="/login" render= {(props) => (<Login {...props} login={handleLogin} handleSubmit={handleSubmit} />)} />
           
