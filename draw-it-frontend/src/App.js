@@ -69,15 +69,15 @@ function App() {
   .catch(console.error);
  }, []);
 
-  const handleSignup = () => {}
+  // const handleSignup = () => {}
 
   const handleLogin = loginData => {
     API.login(loginData).then(user => setUser(user));
   }
-  const handleSubmit = () => {
-    console.log("login button or signup button clicked")
-      // {!user ? ( <SignUp /> ) : (<Canvas />)}
-  }
+  // const handleSubmit = () => {
+  //   console.log("login button or signup button clicked")
+  //     // {!user ? ( <SignUp /> ) : (<Canvas />)}
+  // }
 
     // const { allDrawingsAndUsers } = this.state;
 
@@ -89,8 +89,8 @@ function App() {
           <Container style = {{align: "inline-block"}}>
             <Route exact path="/" component={Home} />
             {user && <span>Hello, {user.username}! </span>}
-          <Route exact path="/signup" render={(props) => (<SignUp {...props} signup={handleSignup} handleSubmit={handleSubmit}/>)} />
-          <Route exact path="/login" render= {(props) => (<Login {...props} login={handleLogin} handleSubmit={handleSubmit} />)} />
+          <Route exact path="/signup" render={(props) => (<SignUp {...props} signup={handleLogin} />)} />
+          <Route exact path="/login" render= {(props) => (<Login {...props} login={handleLogin} />)} />
           
             <Route
               exact

@@ -1,7 +1,9 @@
 import React from "react";
 import { Form, Label, Card, Button } from "semantic-ui-react";
+import { login, signUp } from "../adapters/API";
 
 const FormCard = props => {
+  
   return (
     <Card
       centered
@@ -25,13 +27,13 @@ const FormCard = props => {
       <Form style = {{textAlign: "center"}}>
         <Form.Field inline>
           <Label pointing="right" as='a' tag  color= "purple"> Username:</Label>
-          <input type="text" name="username" placeholder="Username" />
+          <input type="text" name="username" placeholder="Username"  />
         </Form.Field>
        
 
         <Form.Field inline>
           <Label pointing="right" as='a' tag color= "purple" >Password:</Label>
-          <input type="password" name="password" placeholder="Password" />
+          <input type="password" name="password" placeholder="Password"  />
         </Form.Field>
      
 
@@ -45,7 +47,7 @@ const FormCard = props => {
         </Form.Field> }
        
 
-        <Button onClick={props.handleSubmit} type="submit" value="SignUp" basic color="purple" >
+        <Button  type="submit" value="SignUp" basic color="purple" >
           {props.title}
         </Button>
       </Form>
