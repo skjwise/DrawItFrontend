@@ -4,8 +4,8 @@ import {Button, Form } from 'semantic-ui-react';
 
 const SignUp = (props) => {
     return (
-        <div>
-        <br/>
+        
+        /* <br/>
           <br/>
           <br/>
           <h3> Please Enter Details below to Sign Up: </h3>
@@ -23,7 +23,8 @@ const SignUp = (props) => {
                 <Button onClick={props.handleSubmit} type="submit" value="SignUp">Sign Up!</Button>
             </div>
         </Form>
-        </div>
+        </div> */
+        <FormCard title= "Sign Up!" signUp = {true} handleSubmit = {props.handleSubmit}/>
     )
 }
 
