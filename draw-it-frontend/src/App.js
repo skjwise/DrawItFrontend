@@ -1,23 +1,69 @@
 import React, {useState, useEffect} from "react";
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import {Container } from "semantic-ui-react";
-import AllDrawings from './containers/AllDrawings';
-import MyDrawings from './containers/MyDrawings';
-import Canvas from './containers/Canvas';
-import Navbar from './containers/Navbar';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+
 import "./App.css";
 import Login from "./containers/Login";
 import SignUp from "./containers/SignUp";
-import API from './adapters/API';
+import { Container } from "semantic-ui-react";
+import AllDrawings from "./containers/AllDrawings";
+import MyDrawings from "./containers/MyDrawings";
+import Canvas from "./containers/Canvas";
+import Navbar from "./containers/Navbar";
+import Home from "./components/Home";
+import fetchAPI from "./adapters/fetchAPI";
+import API from "./adapters/API"
 
 function App() {
-  // this.state = {
-  //   allDrawingsAndUsers: []
-  // };
 
- const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
+  const [allDrawings, setAllDrawings] = useState([]);
+  const [mostLikedDrawing, setMostLikedDrawing] = useState("");
+
+  const getDrawings = () => {
+    fetchAPI.getDrawings()
+      .then(drawings => setAllDrawings(drawings.drawings))
+      .then(defineAllDrawingsAndMostLikedDrawing());
+  }
+
+  const saveDrawing = drawing => {
+    setAllDrawings([...allDrawings, drawing]);
+  };
+
+  const defineAllDrawingsAndMostLikedDrawing = () => {
+    const copyAllDrawings = [...allDrawings];
+
+    const sortedDrawings = copyAllDrawings.sort(
+      (a, b) => b.number_of_likes - a.number_of_likes
+    );
+
+    const mostLikedDrawing = sortedDrawings[0];
+    console.log(mostLikedDrawing);
+
+    setMostLikedDrawing( mostLikedDrawing );
+  };
+
+  const filterDrawings = () => {
+    const copyAllDrawings = [...allDrawings];
+    if (mostLikedDrawing) {
+      return copyAllDrawings.filter(
+        drawing => drawing.id !== mostLikedDrawing.id
+      );
+    } else {
+      return copyAllDrawings;
+    }
+  };
+
+  const updateLikes = (id, likes) => {
+    const drawings = allDrawings.map(drawing =>
+      drawing.id === id ? { ...drawing, number_of_likes: likes } : drawing
+    );
+    setAllDrawings( drawings);
+  };
+
 
  useEffect(() => {
+   getDrawings()
   API.validateUser()
   .then(user => setUser(user))
   .catch(console.error);
@@ -28,30 +74,61 @@ function App() {
   const handleLogin = loginData => {
     API.login(loginData).then(user => setUser(user));
   }
-
   const handleSubmit = () => {
     console.log("login button or signup button clicked")
       // {!user ? ( <SignUp /> ) : (<Canvas />)}
   }
 
     // const { allDrawingsAndUsers } = this.state;
+
     return (
-      <div className="background">
+      <div className="background" >
+        
         <Router>
+<<<<<<< HEAD
         <Navbar />
         {user && <span>Hello, {user.username}! </span>}
         <Container>
+=======
+          <Navbar />
+          <Container style = {{align: "inline-block"}}>
+            <Route exact path="/" component={Home} />
+            {user && <span>Hello, {user.username}! </span>}
+>>>>>>> 8a97bcb3fadbd49e738d819345a5884529032328
           <Route exact path="/signup" render={(props) => (<SignUp {...props} signup={handleSignup} handleSubmit={handleSubmit}/>)} />
           <Route exact path="/login" render= {(props) => (<Login {...props} login={handleLogin} handleSubmit={handleSubmit} />)} />
-          <Route exact path="/canvas" component = {Canvas}/>
-          <Route
-          exact
-          path="/alldrawings"
-          // render={(props) => (<AllDrawings {...props} allDrawings = {allDrawingsAndUsers.drawings}/>)}
-          />
-          <Route exact path="/mydrawings" render={(props) => (<MyDrawings {...props} />)}/>
-        </Container>
+          
+            <Route
+              exact
+              path="/canvas"
+              render={props => (
+                <Canvas {...props} saveDrawing={saveDrawing} />
+              )}
+            />
+            <Route
+              exact
+              path="/alldrawings"
+              render={props => (
+                <AllDrawings
+                  {...props}
+                  allDrawings={filterDrawings()}
+                  mostLikedDrawing={mostLikedDrawing}
+                  defineAllDrawingsAndMostLikedDrawing={
+                    defineAllDrawingsAndMostLikedDrawing
+                  }
+                  updateLikes={updateLikes}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/mydrawings"
+              render={props => <MyDrawings {...props} />}
+            />
+          </Container>
         </Router>
+
+        
       </div>
     );
 }

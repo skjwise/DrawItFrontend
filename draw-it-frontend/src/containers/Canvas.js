@@ -1,25 +1,26 @@
 import React, { Component } from "react";
 import CanvasDraw from "react-canvas-draw";
 
-
 // dropdown selected attribute to disply colors on the left-hand side of the Canvas Page?
-import { Card, Grid, Button } from "semantic-ui-react";
+import { Card, Grid, Button, Label } from "semantic-ui-react";
 import { CirclePicker } from "react-color";
-import API from "../adapters/fetchAPI";
+import fetchAPI from "../adapters/fetchAPI";
 
 export class Canvas extends Component {
   state = {
-    brushColor: "lightblue",
-    brushRadius: 1,
+    brushColor: "darkviolet",
+    brushRadius: 3,
     saved: false,
     canvasSize: 400
   };
 
   saveDrawing = () => {
     this.setState({ saved: true });
-    API.createDrawings(this.saveableCanvas.getSaveData()).then(d =>
-      console.log(d.drawing.url)
-    );
+    console.log(this.saveableCanvas.getSaveData());
+    fetchAPI
+      .createDrawings(this.saveableCanvas.getSaveData())
+      // .then(d => console.log(d.drawing, d))
+      .then(drawing => this.props.saveDrawing(drawing));
   };
 
   handleChangeComplete = color => {
@@ -38,27 +39,22 @@ export class Canvas extends Component {
       <Grid stackable>
         <Grid.Column width={6}>
           <br />
-          <p>colours</p>
+          <Label as="a" color="purple" tag>
+            Pick your colours!
+          </Label>
+          <br />
+          <br />
           <CirclePicker
             color={this.state.brushColor}
             onChangeComplete={this.handleChangeComplete}
           />
-          {this.state.saved === false ? (
-            <Button
-              basic
-              color="teal"
-              content="Save drawing"
-              onClick={this.saveDrawing}
-            />
-          ) : (
-            <Button content="Drawing saved" />
-          )}
         </Grid.Column>
         <Grid.Column width={10}>
-          Current Category: Elephant
+          <br />
           <Card
             id="card"
             // ref={card => (this.card = card)}
+            label={{ as: "a", corner: "left", icon: "heart" }}
             style={{ height: this.state.canvasSize, width: "75%" }}
           >
             <CanvasDraw
@@ -72,6 +68,22 @@ export class Canvas extends Component {
               gridColor="white"
             />
           </Card>
+          {this.state.saved === false ? (
+            <Button
+              basic
+              color="purple"
+              content="Save drawing"
+              onClick={this.saveDrawing}
+            />
+          ) : (
+            <Button content="Drawing saved" />
+          )}
+          <Button
+            basic
+            color="purple"
+            content="New drawing"
+            onClick={() => this.saveableCanvas.clear()}
+          />
         </Grid.Column>
       </Grid>
     );

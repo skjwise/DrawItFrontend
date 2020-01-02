@@ -1,4 +1,4 @@
-const DRAWINGS_URL = "http://localhost:3000/drawings";
+const DRAWINGS_URL = "http://localhost:3000/drawings/";
 
 const jsonify = res => res.json();
 
@@ -18,4 +18,15 @@ const createDrawings = (drawingData) => {
   }).then(jsonify);
 };
 
-export default { getDrawings, createDrawings };
+const addLike = (id, likes) => {
+  return fetch(DRAWINGS_URL + id, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ id: id, number_of_likes:likes })
+  } ).then(jsonify);
+}
+
+export default { getDrawings, createDrawings, addLike };

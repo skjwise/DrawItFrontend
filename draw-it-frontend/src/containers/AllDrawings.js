@@ -1,23 +1,58 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Divider, Label, Segment } from "semantic-ui-react";
 import DrawingCard from "../components/DrawingCard";
 
-const AllDrawings = ({ allDrawings}) => {
+const AllDrawings = ({
+  updateLikes,
+  allDrawings,
+  mostLikedDrawing,
+  defineAllDrawingsAndMostLikedDrawing
+}) => {
   return (
-    <Grid centered >
+    <Grid centered>
       <Grid.Row columns={1}>
-        {/* <DrawingCard username="sarah" drawing = "test" /> */}
+        <Grid.Column width={6}>
+          {mostLikedDrawing === undefined ? (
+            defineAllDrawingsAndMostLikedDrawing()
+          ) : (
+            <Segment raised>
+              <Label as="a" color = "purple" ribbon>
+                Most Popular Drawing:
+              </Label>
+              <DrawingCard
+                key={mostLikedDrawing.id}
+                id={mostLikedDrawing.id}
+                username={mostLikedDrawing.user.username}
+                drawing={mostLikedDrawing.url}
+                likes={mostLikedDrawing.number_of_likes}
+                defineAllDrawingsAndMostLikedDrawing={
+                  defineAllDrawingsAndMostLikedDrawing
+                }
+                allDrawings={allDrawings}
+                updateLikes={updateLikes}
+              />
+            </Segment>
+          )}
+        </Grid.Column>
       </Grid.Row>
-      <Grid.Row columns={3}>
+      <Divider />
+      <Grid.Row columns={4}>
         {allDrawings.map(drawing => (
           <DrawingCard
             key={drawing.id}
+            id={drawing.id}
             username={drawing.user.username}
             drawing={drawing.url}
-            likes = {drawing.number_of_likes}
+            likes={drawing.number_of_likes}
+            defineAllDrawingsAndMostLikedDrawing={
+              defineAllDrawingsAndMostLikedDrawing
+            }
+            allDrawings={allDrawings}
+            updateLikes={updateLikes}
           />
         ))}
       </Grid.Row>
+      <Divider />
     </Grid>
   );
 };
