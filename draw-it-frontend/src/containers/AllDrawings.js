@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Divider, Label, Segment } from "semantic-ui-react";
 import DrawingCard from "../components/DrawingCard";
 
 const AllDrawings = ({
@@ -11,23 +11,31 @@ const AllDrawings = ({
   return (
     <Grid centered>
       <Grid.Row columns={1}>
-        {mostLikedDrawing === undefined ? (
-          defineAllDrawingsAndMostLikedDrawing()
-        ) : (
-          <DrawingCard
-            key={mostLikedDrawing.id}
-            id={mostLikedDrawing.id}
-            username={mostLikedDrawing.user.username}
-            drawing={mostLikedDrawing.url}
-            likes={mostLikedDrawing.number_of_likes}
-            defineAllDrawingsAndMostLikedDrawing={
-              defineAllDrawingsAndMostLikedDrawing
-            }
-            allDrawings={allDrawings}
-            updateLikes={updateLikes}
-          />
-        )}
+        <Grid.Column width={6}>
+          {mostLikedDrawing === undefined ? (
+            defineAllDrawingsAndMostLikedDrawing()
+          ) : (
+            <Segment raised>
+              <Label as="a" color = "purple" ribbon>
+                Most Popular Drawing:
+              </Label>
+              <DrawingCard
+                key={mostLikedDrawing.id}
+                id={mostLikedDrawing.id}
+                username={mostLikedDrawing.user.username}
+                drawing={mostLikedDrawing.url}
+                likes={mostLikedDrawing.number_of_likes}
+                defineAllDrawingsAndMostLikedDrawing={
+                  defineAllDrawingsAndMostLikedDrawing
+                }
+                allDrawings={allDrawings}
+                updateLikes={updateLikes}
+              />
+            </Segment>
+          )}
+        </Grid.Column>
       </Grid.Row>
+      <Divider />
       <Grid.Row columns={4}>
         {allDrawings.map(drawing => (
           <DrawingCard
@@ -44,6 +52,7 @@ const AllDrawings = ({
           />
         ))}
       </Grid.Row>
+      <Divider />
     </Grid>
   );
 };

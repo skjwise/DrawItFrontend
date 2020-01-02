@@ -6,6 +6,7 @@ const Home = () => {
     return (
         <CanvasDraw
         disabled
+        hideGrid= {true}
         loadTimeOffset={0}
         canvasWidth={1000}
         canvasHeight={500}

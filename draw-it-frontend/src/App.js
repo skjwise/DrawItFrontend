@@ -69,7 +69,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="background">
+      <div className="background" >
         
         <Router>
           <Navbar />
