@@ -1,7 +1,10 @@
 import React from 'react';
 import {Button, Form } from 'semantic-ui-react';
+import Canvas from './Canvas';
+import SignUp from './SignUp';
 
-const Login = () => {
+const Login = (props) => {
+
     return (
       <div>
             <br />
@@ -19,7 +22,7 @@ const Login = () => {
           </div>
           <Form.Field>
               <br/>
-            <Button type="submit" value="Login" >Login!</Button>
+            <Button onClick={props.handleSubmit} type="submit" value="Login" >Login!</Button>
           </Form.Field>
         </Form>
       </div>

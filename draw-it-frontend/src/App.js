@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -13,9 +14,26 @@ import Navbar from "./containers/Navbar";
 import Home from "./components/Home";
 import fetchAPI from "./adapters/fetchAPI";
 
-
+=======
+import React, {useState, useEffect} from "react";
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {Container } from "semantic-ui-react";
+import AllDrawings from './containers/AllDrawings';
+import MyDrawings from './containers/MyDrawings';
+import Canvas from './containers/Canvas';
+import Navbar from './containers/Navbar';
 import "./App.css";
+import Login from "./containers/Login";
+import SignUp from "./containers/SignUp";
+import API from './adapters/API';
+>>>>>>> 523a1fc217ea9afb582e64ee17f5c49ae65cb859
 
+function App() {
+  // this.state = {
+  //   allDrawingsAndUsers: []
+  // };
+
+<<<<<<< HEAD
 class App extends React.Component {
   state = {
     allDrawings: [],
@@ -62,16 +80,37 @@ class App extends React.Component {
     );
     this.setState({ allDrawings });
   };
+=======
+ const [user, setUser] = useState(null);
 
-  componentDidMount() {
-    this.getDrawings();
+ useEffect(() => {
+  API.validateUser()
+  .then(user => setUser(user))
+  .catch(console.error);
+ }, []);
+
+  const handleSignup = () => {}
+>>>>>>> 523a1fc217ea9afb582e64ee17f5c49ae65cb859
+
+  const handleLogin = loginData => {
+    API.login(loginData).then(user => setUser(user));
   }
 
+<<<<<<< HEAD
   render() {
+=======
+  const handleSubmit = () => {
+    console.log("login button or signup button clicked")
+      // {!user ? ( <SignUp /> ) : (<Canvas />)}
+  }
+
+    // const { allDrawingsAndUsers } = this.state;
+>>>>>>> 523a1fc217ea9afb582e64ee17f5c49ae65cb859
     return (
       <div className="background" >
         
         <Router>
+<<<<<<< HEAD
           <Navbar />
           <Container>
             <Route exact path="/" component={Home} />
@@ -105,12 +144,26 @@ class App extends React.Component {
               render={props => <MyDrawings {...props} />}
             />
           </Container>
+=======
+        <Navbar />
+        <Container>
+          {user && <span>Hello, {user.username}! </span>}
+          <Route exact path="/signup" render={(props) => (<SignUp {...props} signup={handleSignup} handleSubmit={handleSubmit}/>)} />
+          <Route exact path="/login" render= {(props) => (<Login {...props} login={handleLogin} handleSubmit={handleSubmit} />)} />
+          <Route exact path="/canvas" component = {Canvas}/>
+          <Route
+          exact
+          path="/alldrawings"
+          // render={(props) => (<AllDrawings {...props} allDrawings = {allDrawingsAndUsers.drawings}/>)}
+          />
+          <Route exact path="/mydrawings" render={(props) => (<MyDrawings {...props} />)}/>
+        </Container>
+>>>>>>> 523a1fc217ea9afb582e64ee17f5c49ae65cb859
         </Router>
 
         
       </div>
     );
-  }
 }
 
 export default App;
