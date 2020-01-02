@@ -48,7 +48,7 @@ class DrawingCard extends React.Component {
           lazyRadius={5}
           brushRadius={5}
           catenaryColor="white"
-          immediateLoading={false}
+          immediateLoading={true}
           saveData={drawing}
         />
 

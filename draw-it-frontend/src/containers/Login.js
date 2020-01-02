@@ -1,6 +1,5 @@
 import React from 'react';
 import FormCard from '../components/FormCard';
-import {Button, Form } from 'semantic-ui-react';
 import Canvas from './Canvas';
 import SignUp from './SignUp';
 
@@ -27,7 +26,7 @@ const Login = (props) => {
       //     </Form.Field>
       //   </Form>
       // </div>
-      <FormCard title= "Login!"  handleSubmit = {props.handleSubmit}/>
+      <FormCard title= "LOGIN HERE!" button = "Login"  handleSubmit = {props.handleSubmit}/>
   
     )
   }

@@ -24,7 +24,7 @@ const SignUp = (props) => {
             </div>
         </Form>
         </div> */
-        <FormCard title= "Sign Up!" signUp = {true} handleSubmit = {props.handleSubmit}/>
+        <FormCard title= "SIGN UP BELOW!" button = "Sign up" signUp = {true} handleSubmit = {props.handleSubmit}/>
     )
 }
 
