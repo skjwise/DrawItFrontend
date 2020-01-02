@@ -22,7 +22,7 @@ const Login = (props) => {
           </div>
           <Form.Field>
               <br/>
-            <Button onClick={props.handleSubmit} type="submit" value="Login" >Login!</Button>
+            <Button onClick={props.handleLogin} type="submit" value="Login" >Login!</Button>
           </Form.Field>
         </Form>
       </div>

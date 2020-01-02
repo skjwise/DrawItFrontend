@@ -39,8 +39,8 @@ function App() {
       <div className="background">
         <Router>
         <Navbar />
+        {user && <span>Hello, {user.username}! </span>}
         <Container>
-          {user && <span>Hello, {user.username}! </span>}
           <Route exact path="/signup" render={(props) => (<SignUp {...props} signup={handleSignup} handleSubmit={handleSubmit}/>)} />
           <Route exact path="/login" render= {(props) => (<Login {...props} login={handleLogin} handleSubmit={handleSubmit} />)} />
           <Route exact path="/canvas" component = {Canvas}/>
