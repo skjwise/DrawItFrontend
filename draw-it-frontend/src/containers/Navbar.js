@@ -44,8 +44,8 @@ export class Navbar extends Component {
               exact
               to="/logout"
               active={activeItem === "logout"}
-              onClick={this.handleItemClick}
-            />{" "}
+              onClick={() => this.props.onSuccess()}
+            />
           </React.Fragment>
         ) : (
           <React.Fragment>

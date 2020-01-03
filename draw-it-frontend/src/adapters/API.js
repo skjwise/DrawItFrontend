@@ -7,68 +7,67 @@ const DRAWING_URL = `${API_ENDPOINT}/drawings`;
 const jsonify = res => res.json();
 
 export const login = loginData => {
-    return fetch(LOGIN_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({user: loginData})
-    })
+  return fetch(LOGIN_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify({ user: loginData })
+  })
     .then(jsonify)
     .then(data => {
-        localStorage.setItem("token", data.token);
-        return data.user;
-    })
+      localStorage.setItem("token", data.token);
+      return data.user;
+    });
 };
 
 export const signUp = signupData => {
-   return fetch(USERS_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({user: signupData})
-    })
+  return fetch(USERS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify({ user: signupData })
+  })
     .then(jsonify)
     .then(data => {
-        localStorage.setItem("token", data.token);
-        return data.user;
-    })
-}
+      localStorage.setItem("token", data.token);
+      return data.user;
+    });
+};
 
 export const validateUser = () => {
-    if (localStorage.token) {
-        return fetch(VALIDATE_URL, {
-            headers: {
-                Authorisation: localStorage.token
-            }
-        })
-        .then(jsonify)
-        .then(data => {
-            localStorage.setItem("token", data.token);
-            return data.user;
-        })
-    } else {
-        return Promise.reject({ error: "no token"})
-    }
-}
+  if (localStorage.token) {
+    return fetch(VALIDATE_URL, {
+      headers: {
+        Authorisation: localStorage.token
+      }
+    })
+      .then(jsonify)
+      .then(data => {
+        localStorage.setItem("token", data.token);
+        return data.user;
+      });
+  } else {
+    return Promise.reject({ error: "no token" });
+  }
+};
 
 export const getDrawings = () => {
-    return fetch(DRAWING_URL)
-      .then(res => res.json())
-      .then(allDrawingsAndUsers =>
-        this.setState({
-          allDrawingsAndUsers
-        })
-      );
-}
-
+  return fetch(DRAWING_URL)
+    .then(res => res.json())
+    .then(allDrawingsAndUsers =>
+      this.setState({
+        allDrawingsAndUsers
+      })
+    );
+};
 
 export default {
-    login,
-    signUp,
-    validateUser,
-    getDrawings
-}
+  login,
+  signUp,
+  validateUser,
+  getDrawings
+};

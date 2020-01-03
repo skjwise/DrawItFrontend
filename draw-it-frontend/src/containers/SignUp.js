@@ -1,27 +1,31 @@
-import React, {useState} from 'react';
-import FormCard from '../components/FormCard';
+import React, { useState } from "react";
+import FormCard from "../components/FormCard";
 import { signUp } from "../adapters/API";
 
+const SignUp = props => {
+  const [signupData, setSignupData] = useState({});
 
-const SignUp = (props) => {
-    const [signupData, setSignupData] = useState({});
+  const handleSignupChange = e => {
+    setSignupData({
+      ...signupData,
+      [e.target.name]: e.target.value
+    });
+  };
 
-    const handleSignupChange = e => {
-      setSignupData({
-        ...signupData,
-        [e.target.name]: e.target.value
-      })
-    };
-  
-    const handleSignupSubmit = e => {
-      e.preventDefault();
-      signUp(signupData).then(props.onSuccess)
-    }
+  const handleSignupSubmit = e => {
+    e.preventDefault();
+    signUp(signupData).then(props.onSuccess);
+  };
 
-    return (
-
-        <FormCard title= "Sign Up!"  button = "Sign up" signUp = {true} handleSubmit = {handleSignupSubmit} handleChange={handleSignupChange}/>
-    )
-}
+  return (
+    <FormCard
+      title="Sign Up!"
+      button="Sign up"
+      signUp={true}
+      handleSubmit={handleSignupSubmit}
+      handleChange={handleSignupChange}
+    />
+  );
+};
 
 export default SignUp;

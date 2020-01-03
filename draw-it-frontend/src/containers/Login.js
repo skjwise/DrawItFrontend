@@ -1,34 +1,32 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
-import FormCard from '../components/FormCard';
+import FormCard from "../components/FormCard";
 import { login } from "../adapters/API";
 
-
-
-
-const Login = (props) => {
+const Login = props => {
   const [loginData, setLoginData] = useState({});
-
 
   const handleLoginChange = e => {
     setLoginData({
       ...loginData,
       [e.target.name]: e.target.value
-    })
+    });
   };
 
   const handleLoginSubmit = e => {
-    e.preventDefault()
-    login(loginData).then(props.onSuccess)
-  }
+    console.log(loginData);
+    e.preventDefault();
+    login(loginData).then(props.onSuccess);
+  };
 
+  return (
+    <FormCard
+      title="Login below!"
+      button="Login"
+      handleSubmit={handleLoginSubmit}
+      handleChange={handleLoginChange}
+    />
+  );
+};
 
-    return (
-
-      <FormCard title= "Login below!"  button = "Login" handleSubmit = {handleLoginSubmit} onChange={handleLoginChange}/>
-  
-    )
-  }
-
-
-  export default Login;
+export default Login;

@@ -40,7 +40,7 @@ const FormCard = props => {
                   type="text"
                   name="username"
                   placeholder="Username"
-                  onChange={props.handleChange}
+                  onChange={event => props.handleChange(event)}
                 />
               </Form.Field>
 
@@ -52,7 +52,7 @@ const FormCard = props => {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  onChange={props.handleChange}
+                  onChange={event => props.handleChange(event)}
                 />
               </Form.Field>
 
@@ -65,7 +65,7 @@ const FormCard = props => {
                     type="password"
                     name="password"
                     placeholder="Password confirmation"
-                    onChange={props.handleChange}
+                    onChange={event => props.handleChange(event)}
                   />
                 </Form.Field>
               )}
