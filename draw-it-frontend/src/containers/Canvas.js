@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CanvasDraw from "react-canvas-draw";
+import { useHistory } from "react-router-dom";
 
 import { Card, Grid, Button, Label, Icon } from "semantic-ui-react";
 import { CirclePicker } from "react-color";
@@ -18,7 +19,10 @@ export class Canvas extends Component {
     this.setState({ saved: true });
     console.log(this.saveableCanvas.getSaveData());
     fetchAPI
-      .createDrawings(this.props.user.username, this.saveableCanvas.getSaveData())
+      .createDrawings(
+        this.props.user.username,
+        this.saveableCanvas.getSaveData()
+      )
       .then(drawing => this.props.saveDrawing(drawing));
   };
 
@@ -41,6 +45,10 @@ export class Canvas extends Component {
 
   sizeChange = value => {
     this.setState({ brushRadius: value });
+  };
+
+  viewDrawing = () => {
+    this.props.history.push("/allDrawings");
   };
 
   componentDidMount() {
@@ -91,20 +99,17 @@ export class Canvas extends Component {
           />
           <br />
           <br />
-          
+
           {this.state.saved === false ? (
             <Button
               basic
               color="purple"
               content="Save drawing"
               onClick={this.saveDrawing}
-              
             />
           ) : (
-            <Button content="Drawing saved"  />
+            <Button content="View drawings" onClick={this.viewDrawing} />
           )}
-          
-          
         </Grid.Column>
         <Grid.Column width={10}>
           <br />
@@ -114,7 +119,6 @@ export class Canvas extends Component {
           </Label>
           <br />
           <br />
-          
 
           <Card
             id="card"
@@ -145,7 +149,6 @@ export class Canvas extends Component {
             color="purple"
             size="large"
           />
-
         </Grid.Column>
       </Grid>
     );
