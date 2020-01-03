@@ -25,9 +25,9 @@ class DrawingCard extends React.Component {
     }
     fetchAPI
       .addLike(this.props.id, likes)
-      .then(this.setState({ heartColor, likes }))
-      .then(this.props.updateLikes(this.props.id, likes))
-      .then(this.props.defineAllDrawingsAndMostLikedDrawing());
+      .then(() => this.setState({ heartColor, likes }))
+      .then(() => this.props.updateLikes(this.props.id, likes))
+      .then(() => this.props.defineAllDrawingsAndMostLikedDrawing());
   };
 
   componentDidMount() {

@@ -18,14 +18,14 @@ function App() {
   const [allDrawings, setAllDrawings] = useState([]);
   const [mostLikedDrawing, setMostLikedDrawing] = useState("");
   const [startingValue, setStartingValue] = useState(0);
-  const history = useHistory()
+  const history = useHistory();
 
   const getDrawings = () => {
     fetchAPI
       .getDrawings()
       .then(drawings => setAllDrawings(drawings.drawings))
-      .then(defineCurrentDrawings())
-      .then(defineAllDrawingsAndMostLikedDrawing());
+      .then(() => defineCurrentDrawings())
+      .then(() => defineAllDrawingsAndMostLikedDrawing());
   };
 
   const defineCurrentDrawings = () => {
@@ -41,12 +41,12 @@ function App() {
     } else {
       newValue = startingValue - 15;
     }
-    const newStartingValue = (newValue) % allDrawings.length;
+    const newStartingValue = newValue % allDrawings.length;
     setStartingValue(newStartingValue);
   };
 
   const saveDrawing = drawing => {
-    setAllDrawings([drawing, ...allDrawings ]);
+    setAllDrawings([drawing, ...allDrawings]);
   };
 
   const defineAllDrawingsAndMostLikedDrawing = () => {
@@ -87,52 +87,60 @@ function App() {
       .catch(console.error);
   }, []);
 
-
-
   const handleLogin = user => {
-    setUser(user)
-    history.push('/canvas')
-  }
- 
-    return (
-      <div className="background" >
-                  <Navbar />
-          <Container style = {{align: "inline-block"}}>
-            <Route exact path="/" component={Home} />
-            {user && <span>Hello, {user.username}! </span>}
-          <Route exact path="/signup" render={(props) => (<SignUp {...props} onSuccess={handleLogin} />)} />
-          <Route exact path="/login" render= {(props) => (<Login {...props} onSuccess={handleLogin} />)} />
-          
-            <Route
-              exact
-              path="/canvas"
-              render={props => (
-                <Canvas {...props} saveDrawing={saveDrawing} />
-              )}
+    setUser(user);
+    history.push("/canvas");
+  };
+
+  return (
+    <div className="background">
+      <Navbar />
+      <Container style={{ align: "inline-block" }}>
+        <Route exact path="/" component={Home} />
+        {user && <span>Hello, {user.username}! </span>}
+        <Route
+          exact
+          path="/signup"
+          render={props => <SignUp {...props} onSuccess={handleLogin} />}
+        />
+        <Route
+          exact
+          path="/login"
+          render={props => <Login {...props} onSuccess={handleLogin} />}
+        />
+
+        <Route
+          exact
+          path="/canvas"
+          render={props => (
+            <Canvas {...props} saveDrawing={saveDrawing} user={user} />
+          )}
+        />
+        <Route
+          exact
+          path="/alldrawings"
+          render={props => (
+            <AllDrawings
+              {...props}
+              allDrawings={defineCurrentDrawings()}
+              mostLikedDrawing={mostLikedDrawing}
+              defineAllDrawingsAndMostLikedDrawing={
+                defineAllDrawingsAndMostLikedDrawing
+              }
+              updateLikes={updateLikes}
+              getMoreDrawings={getMoreDrawings}
+              startingValue={startingValue}
             />
-            <Route
-              exact
-              path="/alldrawings"
-              render={props => (
-                <AllDrawings
-                  {...props}
-                  allDrawings={filterDrawings()}
-                  mostLikedDrawing={mostLikedDrawing}
-                  defineAllDrawingsAndMostLikedDrawing={
-                    defineAllDrawingsAndMostLikedDrawing
-                  }
-                  updateLikes={updateLikes}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/mydrawings"
-              render={props => <MyDrawings {...props} />}
-            />
-          </Container>
-      </div>
-    );
+          )}
+        />
+        <Route
+          exact
+          path="/mydrawings"
+          render={props => <MyDrawings {...props} />}
+        />
+      </Container>
+    </div>
+  );
 }
 
 export default App;

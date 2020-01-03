@@ -18,8 +18,7 @@ export class Canvas extends Component {
     this.setState({ saved: true });
     console.log(this.saveableCanvas.getSaveData());
     fetchAPI
-      .createDrawings(1, this.saveableCanvas.getSaveData())
-      // .then(d => console.log(d.drawing, d))
+      .createDrawings(this.props.user.username, this.saveableCanvas.getSaveData())
       .then(drawing => this.props.saveDrawing(drawing));
   };
 
