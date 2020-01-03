@@ -7,7 +7,7 @@ const DRAWING_URL = `${API_ENDPOINT}/drawings`;
 const jsonify = res => res.json();
 
 export const login = loginData => {
-    fetch(LOGIN_URL, {
+    return fetch(LOGIN_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export const login = loginData => {
 };
 
 export const signUp = signupData => {
-    fetch(USERS_URL, {
+   return fetch(USERS_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -32,6 +32,10 @@ export const signUp = signupData => {
         body: JSON.stringify({user: signupData})
     })
     .then(jsonify)
+    .then(data => {
+        localStorage.setItem("token", data.token);
+        return data.user;
+    })
 }
 
 export const validateUser = () => {

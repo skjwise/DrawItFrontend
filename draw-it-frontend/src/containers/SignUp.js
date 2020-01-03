@@ -16,7 +16,7 @@ const SignUp = (props) => {
   
     const handleSignupSubmit = e => {
       e.preventDefault();
-      signUp(signupData)
+      signUp(signupData).then(props.onSuccess)
     }
 
     return (
