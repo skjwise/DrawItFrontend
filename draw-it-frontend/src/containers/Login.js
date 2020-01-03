@@ -5,8 +5,6 @@ import {Redirect, Route} from 'react-router-dom';
 // import SignUp from './SignUp';
 import { login } from "../adapters/API";
 import { Form, Button } from "semantic-ui-react";
-import Canvas from './Canvas'
-
 
 
 const Login = (props) => {
@@ -23,11 +21,6 @@ const Login = (props) => {
   const handleLoginSubmit = e => {
     e.preventDefault()
     login(loginData).then(props.onSuccess)
-  }
-
-  const handlePageChange = () => {
-    // return <Redirect to="/canvas" />
-    return <Route path='/canvas' exact component={Canvas} />
   }
 
     return (
@@ -47,7 +40,7 @@ const Login = (props) => {
           </div>
           <Form.Field>
               <br/>
-            <Button handleClick={handlePageChange} onClick={handleLoginSubmit} type="submit" value="Login" >Login!</Button>
+            <Button onClick={handleLoginSubmit} type="submit" value="Login" >Login!</Button>
           </Form.Field>
         </Form>
       </div>

@@ -95,17 +95,15 @@ function App() {
  }, []);
 
   // const handleSignup = () => {}
-
   const handleLogin = user => {
     setUser(user)
     history.push('/canvas')
   }
-  // const handleSubmit = () => {
-  //   console.log("login button or signup button clicked")
-  //     // {!user ? ( <SignUp /> ) : (<Canvas />)}
-  // }
 
-    // const { allDrawingsAndUsers } = this.state;
+  const handlelogout = () => {
+    setUser(null)
+    history.push('/')
+  }
 
     return (
       <div className="background" >
@@ -115,6 +113,8 @@ function App() {
             {user && <span>Hello, {user.username}! </span>}
           <Route exact path="/signup" render={(props) => (<SignUp {...props} onSuccess={handleLogin} />)} />
           <Route exact path="/login" render= {(props) => (<Login {...props} onSuccess={handleLogin} />)} />
+          <Route exact path="/logout" render= {(props) => (<Login {...props} onSuccess={handlelogout} />)} />
+
           
             <Route
               exact
