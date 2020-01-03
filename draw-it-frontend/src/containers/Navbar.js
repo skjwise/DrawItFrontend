@@ -54,6 +54,14 @@ export class Navbar extends Component {
           active={activeItem === "signUp"}
           onClick={this.handleItemClick}
         />
+        <Menu.Item
+          name="logout"
+          as={NavLink}
+          exact
+          to="/"
+          active={activeItem === "signUp"}
+          onClick={this.handleItemClick}
+        />
       </Menu>
       //  </Segment>
     );
