@@ -87,26 +87,13 @@ function App() {
       .catch(console.error);
   }, []);
 
- useEffect(() => {
-   getDrawings()
-  API.validateUser()
-  .then(user => setUser(user))
-  .catch(console.error);
- }, []);
 
-  // const handleSignup = () => {}
 
   const handleLogin = user => {
     setUser(user)
     history.push('/canvas')
   }
-  // const handleSubmit = () => {
-  //   console.log("login button or signup button clicked")
-  //     // {!user ? ( <SignUp /> ) : (<Canvas />)}
-  // }
-
-    // const { allDrawingsAndUsers } = this.state;
-
+ 
     return (
       <div className="background" >
                   <Navbar />
