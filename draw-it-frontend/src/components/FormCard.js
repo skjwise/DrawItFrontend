@@ -2,81 +2,91 @@ import React from "react";
 import { Form, Label, Grid, Button, Segment } from "semantic-ui-react";
 
 const FormCard = props => {
-  
   return (
     <React.Fragment>
       <br />
       <br />
-    <Grid centered>
-      <Segment
-        raised
-        style={{
-          height: "90%",
-          width: "400px",
-          padding: "10px",
-          margin: "10px",
-          color: "darkviolet",
-          textAlign: "center"
-        }}
-      >
-        <br />
-        <h3
+      <Grid centered>
+        <Segment
+          raised
           style={{
+            height: "90%",
+            width: "400px",
+            padding: "10px",
+            margin: "10px",
+            color: "darkviolet",
             textAlign: "center"
           }}
         >
-          {" "}
-          {props.title}
-        </h3>
-        <br />
-        <br />
-        <Grid centered>
-        <Form style={{ textAlign: "center", width: "85%" }}>
-          <Form.Field style={{ textAlign: "center"}} >
-            <Label  as="a" tag color="purple">
-              {" "}
-              Username
-            </Label>
-            <input type="text" name="username" placeholder="Username" />
-          </Form.Field>
-
-          <Form.Field >
-            <Label as="a" tag color="purple">
-              Password
-            </Label>
-            <input type="password" name="password" placeholder="Password" />
-          </Form.Field>
-
-          {props.signUp && (
-            <Form.Field >
-              <Label as="a" tag color="purple">
-                Password confirmation
-              </Label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password confirmation"
-              />
-            </Form.Field>
-          )}
-
           <br />
-
-          <Button
-            onClick={props.handleSubmit}
-            type="submit"
-            value="SignUp"
-            basic
-            color="purple"
+          <h3
+            style={{
+              textAlign: "center"
+            }}
           >
-            {props.button}
-          </Button>
-        </Form>
-        </Grid>
-        <br />
-        <br />
-      </Segment>
-    </Grid>
+            {" "}
+            {props.title}
+          </h3>
+          <br />
+          <br />
+          <Grid centered>
+            <Form style={{ textAlign: "center", width: "85%" }}>
+              <Form.Field style={{ textAlign: "center" }}>
+                <Label as="a" tag color="purple">
+                  {" "}
+                  Username
+                </Label>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={props.handleChange}
+                />
+              </Form.Field>
+
+              <Form.Field>
+                <Label as="a" tag color="purple">
+                  Password
+                </Label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={props.handleChange}
+                />
+              </Form.Field>
+
+              {props.signUp && (
+                <Form.Field>
+                  <Label as="a" tag color="purple">
+                    Password confirmation
+                  </Label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password confirmation"
+                    onChange={props.handleChange}
+                  />
+                </Form.Field>
+              )}
+
+              <br />
+
+              <Button
+                onClick={props.handleSubmit}
+                type="submit"
+                value="SignUp"
+                basic
+                color="purple"
+              >
+                {props.button}
+              </Button>
+            </Form>
+          </Grid>
+          <br />
+          <br />
+        </Segment>
+      </Grid>
     </React.Fragment>
   );
 };

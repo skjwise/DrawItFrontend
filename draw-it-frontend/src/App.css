@@ -12,3 +12,7 @@
   display: block;
   padding-bottom: 100%;
 }
+
+Label {
+  padding: 5px;
+}

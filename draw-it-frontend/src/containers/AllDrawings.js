@@ -79,6 +79,22 @@ const AllDrawings = ({
             )
           )}
         </Grid.Row>
+        <Grid.Row>
+          {startingValue !== 0 && (
+            <Icon
+              onClick={() => getMoreDrawings("minus")}
+              name="chevron circle left"
+              color="purple"
+              size="large"
+            />
+          )}
+          <Icon
+            onClick={() => getMoreDrawings("plus")}
+            name="chevron circle right"
+            color="purple"
+            size="large"
+          />
+        </Grid.Row>
         <Divider />
       </Grid>
     </React.Fragment>

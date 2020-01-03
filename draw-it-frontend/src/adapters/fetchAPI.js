@@ -12,9 +12,10 @@ const createDrawings = (user, drawingData) => {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
     },
-    body: JSON.stringify({ user_id: user, url: drawingData })
+    body: JSON.stringify({ url: drawingData })
   }).then(jsonify);
 };
 
@@ -23,10 +24,11 @@ const addLike = (id, likes) => {
     method: "PATCH",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
     },
-    body: JSON.stringify({ id: id, number_of_likes:likes })
-  } ).then(jsonify);
-}
+    body: JSON.stringify({ id: id, number_of_likes: likes })
+  }).then(jsonify);
+};
 
 export default { getDrawings, createDrawings, addLike };

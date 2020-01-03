@@ -18,14 +18,14 @@ function App() {
   const [allDrawings, setAllDrawings] = useState([]);
   const [mostLikedDrawing, setMostLikedDrawing] = useState("");
   const [startingValue, setStartingValue] = useState(0);
-  const history = useHistory()
+  const history = useHistory();
 
   const getDrawings = () => {
     fetchAPI
       .getDrawings()
       .then(drawings => setAllDrawings(drawings.drawings))
-      .then(defineCurrentDrawings())
-      .then(defineAllDrawingsAndMostLikedDrawing());
+      .then(() => defineCurrentDrawings())
+      .then(() => defineAllDrawingsAndMostLikedDrawing());
   };
 
   const defineCurrentDrawings = () => {
@@ -41,12 +41,12 @@ function App() {
     } else {
       newValue = startingValue - 15;
     }
-    const newStartingValue = (newValue) % allDrawings.length;
+    const newStartingValue = newValue % allDrawings.length;
     setStartingValue(newStartingValue);
   };
 
   const saveDrawing = drawing => {
-    setAllDrawings([drawing, ...allDrawings ]);
+    setAllDrawings([drawing, ...allDrawings]);
   };
 
   const defineAllDrawingsAndMostLikedDrawing = () => {
@@ -87,14 +87,6 @@ function App() {
       .catch(console.error);
   }, []);
 
- useEffect(() => {
-   getDrawings()
-  API.validateUser()
-  .then(user => setUser(user))
-  .catch(console.error);
- }, []);
-
-  // const handleSignup = () => {}
   const handleLogin = user => {
     setUser(user)
     history.push('/canvas')
@@ -143,9 +135,16 @@ function App() {
               path="/mydrawings"
               render={props => <MyDrawings {...props} />}
             />
-          </Container>
-      </div>
-    );
+          )}
+        />
+        <Route
+          exact
+          path="/mydrawings"
+          render={props => <MyDrawings {...props} />}
+        />
+      </Container>
+    </div>
+  );
 }
 
 export default App;

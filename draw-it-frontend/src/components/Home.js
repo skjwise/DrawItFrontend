@@ -8,8 +8,8 @@ const Home = () => {
         disabled
         hideGrid= {true}
         loadTimeOffset={0}
-        canvasWidth={1000}
-        canvasHeight={500}
+        canvasWidth={1100}
+        canvasHeight={600}
         lazyRadius={5}
         brushRadius={5}
         catenaryColor="white"

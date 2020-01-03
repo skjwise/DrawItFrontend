@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import CanvasDraw from "react-canvas-draw";
 
-// dropdown selected attribute to disply colors on the left-hand side of the Canvas Page?
-import { Card, Grid, Button, Label } from "semantic-ui-react";
+import { Card, Grid, Button, Label, Icon } from "semantic-ui-react";
 import { CirclePicker } from "react-color";
+import { Slider } from "react-semantic-ui-range";
 import fetchAPI from "../adapters/fetchAPI";
 
 export class Canvas extends Component {
@@ -18,13 +18,29 @@ export class Canvas extends Component {
     this.setState({ saved: true });
     console.log(this.saveableCanvas.getSaveData());
     fetchAPI
-      .createDrawings(1,this.saveableCanvas.getSaveData())
-      // .then(d => console.log(d.drawing, d))
+      .createDrawings(this.props.user.username, this.saveableCanvas.getSaveData())
       .then(drawing => this.props.saveDrawing(drawing));
   };
 
   handleChangeComplete = color => {
     this.setState({ brushColor: color.hex });
+  };
+
+  handleClick = () => {
+    this.saveableCanvas.clear();
+    this.setState({ saved: false });
+  };
+
+  onSizeChangeComplete = e => {
+    let value = parseInt(e.target.value);
+    if (!value) {
+      value = 0;
+    }
+    this.setState({ brushRadius: e.target.value });
+  };
+
+  sizeChange = value => {
+    this.setState({ brushRadius: value });
   };
 
   componentDidMount() {
@@ -35,13 +51,22 @@ export class Canvas extends Component {
   }
 
   render() {
+    const settings = {
+      start: 3,
+      min: 0,
+      max: 100,
+      step: 1,
+      onChange: value => {
+        this.setState({ brushRadius: value });
+      }
+    };
     return (
       <Grid stackable>
         <Grid.Column width={6}>
           <br />
           <br />
           <Label as="a" color="purple" tag>
-            Pick your colours!
+            Pick your colours
           </Label>
           <br />
           <br />
@@ -50,24 +75,36 @@ export class Canvas extends Component {
             color={this.state.brushColor}
             onChangeComplete={this.handleChangeComplete}
           />
-<br />
           <br />
-           {this.state.saved === false ? (
+          <br />
+          <Label as="a" color="purple" tag>
+            Pick your brush size
+          </Label>
+          <br />
+          <br />
+          <Slider
+            value={this.state.brushRadius}
+            color="purple"
+            onChange={this.onSizeComplete}
+            settings={settings}
+            style={{ width: "90%" }}
+          />
+          <br />
+          <br />
+          
+          {this.state.saved === false ? (
             <Button
               basic
               color="purple"
               content="Save drawing"
               onClick={this.saveDrawing}
+              
             />
           ) : (
-            <Button content="Drawing saved" />
+            <Button content="Drawing saved"  />
           )}
-          <Button
-            basic
-            color="purple"
-            content="New drawing"
-            onClick={() => this.saveableCanvas.clear()}
-          />
+          
+          
         </Grid.Column>
         <Grid.Column width={10}>
           <br />
@@ -77,6 +114,8 @@ export class Canvas extends Component {
           </Label>
           <br />
           <br />
+          
+
           <Card
             id="card"
             // ref={card => (this.card = card)}
@@ -94,7 +133,19 @@ export class Canvas extends Component {
               gridColor="white"
             />
           </Card>
-         
+          <Icon
+            onClick={this.handleClick}
+            name="trash"
+            color="purple"
+            size="large"
+          />
+          <Icon
+            onClick={() => this.saveableCanvas.undo()}
+            name="undo alternate"
+            color="purple"
+            size="large"
+          />
+
         </Grid.Column>
       </Grid>
     );

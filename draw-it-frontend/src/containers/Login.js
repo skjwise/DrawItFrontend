@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {Redirect, Route} from 'react-router-dom';
-// import FormCard from '../components/FormCard';
-// import Canvas from './Canvas';
-// import SignUp from './SignUp';
+
+import FormCard from '../components/FormCard';
 import { login } from "../adapters/API";
-import { Form, Button } from "semantic-ui-react";
+
+
 
 
 const Login = (props) => {
@@ -23,28 +22,10 @@ const Login = (props) => {
     login(loginData).then(props.onSuccess)
   }
 
+
     return (
-      <div>
-            <br />
-            <br /> 
-            <br />
-          <h3>Login!</h3> 
-        <Form>
-          <div>
-            <label htmlFor="username">Username:</label>
-            <input type="text" name="username" placeholder="Enter Username" onChange={handleLoginChange} />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input type="password" name="password" placeholder="Enter Password" onChange={handleLoginChange} />
-          </div>
-          <Form.Field>
-              <br/>
-            <Button onClick={handleLoginSubmit} type="submit" value="Login" >Login!</Button>
-          </Form.Field>
-        </Form>
-      </div>
-      // <FormCard title= "Login!"  handleSubmit = {props.handleSubmit}/>
+
+      <FormCard title= "Login below!"  button = "Login" handleSubmit = {handleLoginSubmit} onChange={handleLoginChange}/>
   
     )
   }
