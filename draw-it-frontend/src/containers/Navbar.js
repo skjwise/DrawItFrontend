@@ -9,7 +9,6 @@ export class Navbar extends Component {
   render() {
     const { activeItem } = this.state;
     return (
-      //   <Segment  color="teal">
       <Menu pointing secondary color="purple">
         <Menu.Item
           name="Home"
@@ -21,49 +20,54 @@ export class Navbar extends Component {
         >
           <Icon name="home" color="purple" size="large" />
         </Menu.Item>
-        <Menu.Item
-          name="draw it!"
-          as={NavLink}
-          exact
-          to="/canvas"
-          active={activeItem === "canvas"}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name="all drawings"
-          as={NavLink}
-          exact
-          to="/alldrawings"
-          active={activeItem === "allDrawings"}
-          onClick={this.handleItemClick}
-        />
-
-        <Menu.Item
-          name="login"
-          as={NavLink}
-          exact
-          to="/login"
-          active={activeItem === "login"}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name="sign up"
-          as={NavLink}
-          exact
-          to="/signup"
-          active={activeItem === "signUp"}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name="logout"
-          as={NavLink}
-          exact
-          to="/"
-          active={activeItem === "signUp"}
-          onClick={this.handleItemClick}
-        />
+        {this.props.user ? (
+          <React.Fragment>
+            <Menu.Item
+              name="draw it!"
+              as={NavLink}
+              exact
+              to="/canvas"
+              active={activeItem === "canvas"}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              name="all drawings"
+              as={NavLink}
+              exact
+              to="/alldrawings"
+              active={activeItem === "allDrawings"}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              name="logout"
+              as={NavLink}
+              exact
+              to="/logout"
+              active={activeItem === "logout"}
+              onClick={this.handleItemClick}
+            />{" "}
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <Menu.Item
+              name="login"
+              as={NavLink}
+              exact
+              to="/login"
+              active={activeItem === "login"}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              name="sign up"
+              as={NavLink}
+              exact
+              to="/signup"
+              active={activeItem === "signUp"}
+              onClick={this.handleItemClick}
+            />{" "}
+          </React.Fragment>
+        )}
       </Menu>
-      //  </Segment>
     );
   }
 }

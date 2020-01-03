@@ -94,7 +94,7 @@ function App() {
 
   return (
     <div className="background">
-      <Navbar />
+      <Navbar user={user} />
       <Container style={{ align: "inline-block" }}>
         <Route exact path="/" component={Home} />
         {user && <span>Hello, {user.username}! </span>}
