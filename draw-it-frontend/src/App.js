@@ -103,6 +103,7 @@ function App() {
       <Navbar user={user} onSuccess={handlelogout} />
       <Container style={{ align: "inline-block" }}>
         <Route exact path="/" component={Home} />
+        <Route exact path="/logout" component={Home} />
         <Route
           exact
           path="/signup"
