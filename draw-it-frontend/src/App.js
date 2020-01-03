@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 import "./App.css";
 import Login from "./containers/Login";
@@ -18,6 +18,7 @@ function App() {
   const [allDrawings, setAllDrawings] = useState([]);
   const [mostLikedDrawing, setMostLikedDrawing] = useState("");
   const [startingValue, setStartingValue] = useState(0);
+  const history = useHistory()
 
   const getDrawings = () => {
     fetchAPI
@@ -86,7 +87,6 @@ function App() {
       .catch(console.error);
   }, []);
 
-<<<<<<< HEAD
  useEffect(() => {
    getDrawings()
   API.validateUser()
@@ -96,8 +96,9 @@ function App() {
 
   // const handleSignup = () => {}
 
-  const handleLogin = loginData => {
-    API.login(loginData).then(user => setUser(user));
+  const handleLogin = user => {
+    setUser(user)
+    history.push('/canvas')
   }
   // const handleSubmit = () => {
   //   console.log("login button or signup button clicked")
@@ -108,14 +109,12 @@ function App() {
 
     return (
       <div className="background" >
-        
-        <Router>
-          <Navbar />
+                  <Navbar />
           <Container style = {{align: "inline-block"}}>
             <Route exact path="/" component={Home} />
             {user && <span>Hello, {user.username}! </span>}
-          <Route exact path="/signup" render={(props) => (<SignUp {...props} signup={handleLogin} />)} />
-          <Route exact path="/login" render= {(props) => (<Login {...props} login={handleLogin} />)} />
+          <Route exact path="/signup" render={(props) => (<SignUp {...props} onSuccess={handleLogin} />)} />
+          <Route exact path="/login" render= {(props) => (<Login {...props} onSuccess={handleLogin} />)} />
           
             <Route
               exact
@@ -145,81 +144,8 @@ function App() {
               render={props => <MyDrawings {...props} />}
             />
           </Container>
-        </Router>
-
-        
       </div>
     );
-=======
-  const handleSignup = () => {};
-
-  const handleLogin = loginData => {
-    API.login(loginData).then(user => setUser(user));
-  };
-  const handleSubmit = () => {
-    console.log("login button or signup button clicked");
-    // {!user ? ( <SignUp /> ) : (<Canvas />)}
-  };
-
-  // const { allDrawingsAndUsers } = this.state;
-
-  return (
-    <div className="background">
-      <Router>
-        <Navbar />
-        <Container>
-          <Route exact path="/" component={Home} />
-          {user && <span>Hello, {user.username}! </span>}
-          <Route
-            exact
-            path="/signup"
-            render={props => (
-              <SignUp
-                {...props}
-                signup={handleSignup}
-                handleSubmit={handleSubmit}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/login"
-            render={props => (
-              <Login
-                {...props}
-                login={handleLogin}
-                handleSubmit={handleSubmit}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path="/canvas"
-            render={props => <Canvas {...props} saveDrawing={saveDrawing} user= {user}/>}
-          />
-          <Route
-            exact
-            path="/alldrawings"
-            render={props => (
-              <AllDrawings
-                {...props}
-                allDrawings={defineCurrentDrawings()}
-                mostLikedDrawing={mostLikedDrawing}
-                defineAllDrawingsAndMostLikedDrawing={
-                  defineAllDrawingsAndMostLikedDrawing
-                }
-                updateLikes={updateLikes}
-                getMoreDrawings={getMoreDrawings}
-                startingValue = {startingValue}
-              />
-            )}
-          />
-        </Container>
-      </Router>
-    </div>
-  );
->>>>>>> e038e519a69f6d01c3febfd98e8b390798bb6e01
 }
 
 export default App;
