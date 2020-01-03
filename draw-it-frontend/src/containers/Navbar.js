@@ -49,8 +49,8 @@ export class Navbar extends Component {
           as={NavLink}
           exact
           to="/"
-          active={activeItem === "signUp"}
-          onClick={this.handleItemClick}
+          active={activeItem === "logout"}
+          onClick={() => this.props.onSuccess}
         />
       </Menu>
       //  </Segment>

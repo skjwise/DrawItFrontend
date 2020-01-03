@@ -57,7 +57,7 @@ function App() {
     );
 
     const mostLikedDrawing = sortedDrawings[0];
-    console.log(mostLikedDrawing);
+    // console.log(mostLikedDrawing);
 
     setMostLikedDrawing(mostLikedDrawing);
   };
@@ -102,18 +102,18 @@ function App() {
 
   const handlelogout = () => {
     setUser(null)
+    localStorage.clear();
     history.push('/')
   }
 
     return (
       <div className="background" >
-                  <Navbar />
+                  <Navbar onSuccess={handlelogout} />
+                  {/* {user && <h2>Hello, {user.username}! </h2>} */}
           <Container style = {{align: "inline-block"}}>
             <Route exact path="/" component={Home} />
-            {user && <span>Hello, {user.username}! </span>}
           <Route exact path="/signup" render={(props) => (<SignUp {...props} onSuccess={handleLogin} />)} />
           <Route exact path="/login" render= {(props) => (<Login {...props} onSuccess={handleLogin} />)} />
-          <Route exact path="/logout" render= {(props) => (<Login {...props} onSuccess={handlelogout} />)} />
 
           
             <Route
